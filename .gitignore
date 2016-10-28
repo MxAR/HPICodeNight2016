@@ -1,0 +1,14 @@
+# Julia
+#######
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+deps/deps.jl
+
+# Logs
+######
+*.log
+
+# VS Code
+#########
+*.vs
