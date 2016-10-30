@@ -10,7 +10,7 @@
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "api/values",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
@@ -18,8 +18,8 @@
     },
     "HCGServer": {
       "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "http://localhost:5000/api/values",
+      "launchBrowser": false,
+      "launchUrl": "http://localhost:5000/api/color",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

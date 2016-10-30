@@ -35,6 +35,7 @@ namespace HCGServer
             // user defined services
             services.AddTransient<Services.HexConverter.IHexConverter, Services.HexConverter.HexConverter>();
             services.AddTransient<Services.EmailSender.IEmailSender, Services.EmailSender.EmailSender>();
+            services.AddTransient<Services.ColorMath.IColorMath, Services.ColorMath.ColorMath>();
 
             // add Dummy helper
             if (dev_env) { services.AddTransient<Dummy>(); }
@@ -53,7 +54,9 @@ namespace HCGServer
             // Log the Startup of the application
             Services.Logs.LogManagement.SetupLogManagement(loggerFactory, env);
 
-            app.UseMvc();
+            app.UseStaticFiles();
+
+             app.UseMvc();
         }
     }
 }

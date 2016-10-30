@@ -1,10 +1,10 @@
-using System;
 using MathNet.Numerics.LinearAlgebra;
+using Microsoft.Extensions.Logging;
 using System.Globalization;
+using System;
 
 namespace HCGServer.Services.HexConverter
 {
-    using Microsoft.Extensions.Logging;
     using static System.Math;
     public class HexConverter : IHexConverter
     {

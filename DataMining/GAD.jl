@@ -1,8 +1,12 @@
+# CosAngle Median: 0.7824274226624149
+# CosAngle Sigma: 0.1652309091634334 
+# CosAngle Sigma Intervall: 0.6171965134989815 <> 0.9476583318258484
+
 module GAD
-    # Pkg.add("Cairo")
-    # Pkg.add("JSON")
-    # Pkg.add("Gadfly")
-    # Pkg.add("Fontconfig")
+    Pkg.add("Cairo")
+    Pkg.add("JSON")
+    Pkg.add("Gadfly")
+    Pkg.add("Fontconfig")
 
     using JSON 
     using Gadfly
