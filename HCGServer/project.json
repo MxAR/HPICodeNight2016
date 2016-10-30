@@ -47,7 +47,8 @@
     "NLog.Web.AspNetCore": "4.2.4",
     "RestSharp": "105.2.3",
     "NLog.Config": "4.3.6.1",
-    "NLog.Schema": "4.3.6.1"
+    "NLog.Schema": "4.3.6.1",
+    "MathNet.Numerics": "3.13.0"
   },
 
   "tools": {

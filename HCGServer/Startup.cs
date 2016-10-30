@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 
 namespace HCGServer
 {
@@ -31,13 +32,26 @@ namespace HCGServer
             // framework services.
             services.AddMvc();
 
+            // user defined services
+            services.AddTransient<Services.HexConverter.IHexConverter, Services.HexConverter.HexConverter>();
+            services.AddTransient<Services.EmailSender.IEmailSender, Services.EmailSender.EmailSender>();
+
+            // add Dummy helper
             if (dev_env) { services.AddTransient<Dummy>(); }
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            // Logging Setup
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            // NLog Setup
+            loggerFactory.AddNLog();
+            env.ConfigureNLog("nlog.config");
+
+            // Log the Startup of the application
+            Services.Logs.LogManagement.SetupLogManagement(loggerFactory, env);
 
             app.UseMvc();
         }

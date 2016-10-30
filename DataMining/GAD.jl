@@ -1,22 +1,35 @@
 module GAD
-    import JSON
-    include("Convert.jl");
+    # Pkg.add("Cairo")
+    # Pkg.add("JSON")
+    # Pkg.add("Gadfly")
+    # Pkg.add("Fontconfig")
+
+    using JSON 
+    using Gadfly
+
+    include("Convert.jl")
 
     function GetData()
         getURL(url) = open(readlines, download(url))
-        result = [256^3]
+        response = JSON.parse(getURL("https://randoma11y.com/combos/top")[1])
+        result = zeros(100)
 
-        for x = 0:0
-            for y = 0:0 
-                for z = 0:0
-                    iv = [x, y, z]
-                    response = JSON.parse(getURL(string("https://randoma11y.com/combos?hex=", Convert.Vector2Hex(iv)))[1])
-                    return response
-                    # acos(dot(iv, b) / (norm(iv) * norm(b)))
-                end 
-            end 
-        end
+        for i = 1:100
+            iv = Convert.ColorHex2Vector(response[i]["color_one"])
+            ov = Convert.ColorHex2Vector(response[i]["color_two"])
+            result[i] = min(dot(iv, ov) / (vecnorm(iv) * vecnorm(ov)), 1.0)
+        end 
 
-        # return result
+        median = sum(result) / 100
+        sigma = 0 
+
+        for i = 1:100 sigma += (result[i] - median)^2 end 
+        sigma = sqrt((sigma/100))
+
+        nad(x) = ((1/((sqrt(2*pi)) * sigma))) * exp(-((x - median)^2/(2*(sigma)^2)))
+        p = plot([nad], -10, 10)
+        draw(PNG("/home/mxar/Documents/GIT_REPOs/HPICodeNight2016/DataMining/normal_angle_distribution.png", 12inch, 9inch), p)
+
+        println(string("Median: ", median, " Sigma: ", sigma, " Sigmaintervall: ", median-sigma, ":", median+sigma))
     end
 end  
