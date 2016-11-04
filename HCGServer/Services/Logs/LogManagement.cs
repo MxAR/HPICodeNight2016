@@ -27,7 +27,7 @@ namespace HCGServer.Services.Logs
             LogStartup();
 
             FlushPeriod = new Timer(new TimerCallback(FlushLogs), null, new TimeSpan(0, 0, 0), new TimeSpan(7, 0, 0, 0));
-            JObject _DBC = JObject.Parse(File.ReadAllText($"{Directory.GetCurrentDirectory()}/Appsettings/Appsettings.json"));
+            JObject _DBC = JObject.Parse(File.ReadAllText($"{Directory.GetCurrentDirectory()}/appsettings.json"));
             ReservedLogSpace = (int)_DBC["Logging"]["ReservedSpaceMB"];
 
             return Task.FromResult(0);
@@ -84,7 +84,7 @@ namespace HCGServer.Services.Logs
             string LogDirectory = $"{AppContext.BaseDirectory}Logs/";
             try{
                 if (Directory.Exists(LogDirectory)) {
-                    if (Utilities.Utilities.GetDirectorySize(LogDirectory) >= ReservedLogSpace){
+                    if (GetDirectorySize(LogDirectory) >= ReservedLogSpace){
                         List<string> Files = Directory.GetFiles(LogDirectory).ToList();
                         List<string> SubDirectories = Directory.GetDirectories(LogDirectory).ToList();
 
@@ -95,6 +95,20 @@ namespace HCGServer.Services.Logs
                     }
                 }
             } catch (IOException ex) { _logger.LogCritical(ex.Message); }
+        }
+
+        private static long GetDirectorySize(string DIRP)
+        {
+            string[] DIR = Directory.GetFiles(DIRP, "*.*");
+            long size = 0;
+            
+            Parallel.ForEach(DIR, e => {
+                FileInfo INFO = new FileInfo(e);
+                size += INFO.Length;
+
+            });
+
+            return size;
         }
     }
 }

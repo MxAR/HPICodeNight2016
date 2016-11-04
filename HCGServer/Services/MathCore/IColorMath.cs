@@ -1,9 +1,10 @@
 using MathNet.Numerics.LinearAlgebra;
+using System;
 
 namespace HCGServer.Services.ColorMath
 {
     public interface IColorMath
     {
-        Vector<double> GetKombo(Vector<double> CV, int PN = 255);
+        Tuple<bool, Vector<double>> GetCombo(Vector<double> V, double P = 1);
     }
 }

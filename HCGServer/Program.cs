@@ -1,8 +1,7 @@
-using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Net.Http.Server;
 using System.IO;
-using System;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 
 namespace HCGServer
 {
@@ -10,30 +9,20 @@ namespace HCGServer
     {
         public static void Main(string[] args)
         {
-            var Configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("Appsettings/Appsettings.json", optional: true, reloadOnChange: true)
+            var config = new ConfigurationBuilder()
+                .AddCommandLine(args)
+                .AddEnvironmentVariables(prefix: "ASPNETCORE_")
                 .Build();
-            
-            var ServerConfig = Configuration.GetSection("Server");
-            ServerConfig["Type"] = ServerConfig["Type"] ?? "Kestrel";
 
-            var Host = new WebHostBuilder()
+            var host = new WebHostBuilder()
+                .UseConfiguration(config)
+                .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseIISIntegration()
                 .UseStartup<Startup>()
-                .UseIISIntegration();
+                .Build();
 
-            if (string.Equals(ServerConfig["Type"], "Kestrel", StringComparison.OrdinalIgnoreCase)) {
-                Host.UseKestrel(options => {
-                    if (ServerConfig["ThreadCount"] != null) { options.ThreadCount = int.Parse(ServerConfig["ThreadCount"]); }
-                });
-            } else if (string.Equals(ServerConfig["Type"], "WebListener", StringComparison.OrdinalIgnoreCase)) {
-                Host.UseWebListener(options => {
-                    options.Listener.AuthenticationManager.AuthenticationSchemes = AuthenticationSchemes.AllowAnonymous;
-                });
-            }
-            
-            Host.Build().Run();
+            host.Run();
         }
     }
 }
