@@ -247,3 +247,6 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+
+# Codekit Files ( such as config )
+*.codekit
