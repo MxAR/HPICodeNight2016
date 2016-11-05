@@ -49,7 +49,7 @@ module GAD
         draw(PNG("/home/mxar/Documents/GIT_REPOs/HPICodeNight2016/DataMining/Images/angle_distribution.png", 12inch, 9inch), p0)
         draw(PNG("/home/mxar/Documents/GIT_REPOs/HPICodeNight2016/DataMining/Images/angle-variance_brightness_relation.png", 12inch, 9inch), p1)
 
-        FORA.Run(brightness, angle, 100000, 0.5, 10)
+        FORA.Run(brightness, angle, 100000, 0.5, 50)
 
         println(string("Median: ", med, " Sigma: ", sig, " Sigmaintervall: ", med-sig, " <> ", med+sig))
     end

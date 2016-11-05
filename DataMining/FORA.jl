@@ -17,10 +17,11 @@ module FORA
 
         for s = 1:POPSize
             push!(POP, [rand((-1*abs(MYCO)):abs(MYCO)), 
-                MXCO, rand((-1*abs(MYCO)):abs(MYCO)), 
                 rand((-1*abs(MYCO)):abs(MYCO)), 
                 rand((-1*abs(MYCO)):abs(MYCO)), 
-                MYCO])
+                rand((-1*abs(MYCO)):abs(MYCO)), 
+                rand((-1*abs(MYCO)):abs(MYCO)), 
+                rand((-1*abs(MYCO)):abs(MYCO))])
         end
         
         for I = 1:PSI
@@ -31,9 +32,11 @@ module FORA
             else epsilon = typemax(Float64) end
             for i = 1:POPSize
                 POP[i][1] = BAG[1] + LAMBDA * randn()
+                POP[i][3] = BAG[2] + LAMBDA * randn()
                 POP[i][3] = BAG[3] + LAMBDA * randn()
                 POP[i][4] = BAG[4] + LAMBDA * randn()
                 POP[i][5] = BAG[5] + LAMBDA * randn()
+                POP[i][3] = BAG[6] + LAMBDA * randn()
             end
         end
 
