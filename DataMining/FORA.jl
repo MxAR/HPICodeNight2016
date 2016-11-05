@@ -1,6 +1,14 @@
+# P1: -550.6178162693743 
+# P2: +0.535864229880747 
+# P3: -107.35201910391194 
+# P4: +90.49773451405363 
+# P5: -11.103030263489412 
+# P6: +35.86253191726658
+
 # 4th order regression analysis
 module FORA
     function Run(XCO::Array{Float64}, YCO::Array{Float64}, PSI::Int64, LAMBDA,  POPSize::Int64)
+    
         epsilon = typemax(Int64)
         MXCO = median(XCO)
         MYCO = median(YCO)
@@ -20,26 +28,17 @@ module FORA
             if re[2] < epsilon
                 epsilon = re[2]
                 BAG = POP[convert(Int32, re[1])]
-                for i = 1:POPSize
-                    POP[i][1] = BAG[1] + LAMBDA * randn()
-                    POP[i][3] = BAG[3] + LAMBDA * randn()
-                    POP[i][4] = BAG[4] + LAMBDA * randn()
-                    POP[i][5] = BAG[5] + LAMBDA * randn()
-                end
-            else 
-                epsilon = typemax(Float64)
-                for i = 1:POPSize
-                    POP[i][1] = BAG[1] + LAMBDA * randn()
-                    POP[i][3] = BAG[3] + LAMBDA * randn()
-                    POP[i][4] = BAG[4] + LAMBDA * randn()
-                    POP[i][5] = BAG[5] + LAMBDA * randn()
-                end
+            else epsilon = typemax(Float64) end
+            for i = 1:POPSize
+                POP[i][1] = BAG[1] + LAMBDA * randn()
+                POP[i][3] = BAG[3] + LAMBDA * randn()
+                POP[i][4] = BAG[4] + LAMBDA * randn()
+                POP[i][5] = BAG[5] + LAMBDA * randn()
             end
         end
 
-
-        println(string("RelEPS: ", min(sqrt(epsilon)/length(XCO), epsilon), " P1: ", BAG[1]," P2: ", BAG[2])) 
-        println(string(" P3: ", BAG[3]," P4: ", BAG[4], " P5: ", BAG[5], " P6: ", BAG[6]))
+        result = min(sqrt(epsilon)/length(XCO), epsilon)
+        println(string("RelEPS: ", result, " P1: ", BAG[1]," P2: ", BAG[2], " P3: ", BAG[3]," P4: ", BAG[4], " P5: ", BAG[5], " P6: ", BAG[6])) 
 
     end
 
