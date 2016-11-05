@@ -44,8 +44,8 @@ module GAD
         med = median(angle)
         sig = Yamartino(angle)
 
-        p1 = plot(x=brightness, y=angle, Geom.point, Geom.line, Geom.smooth, Guide.xlabel("Brightness of the input color"), Guide.ylabel("Angle of the output color"))
-        p0 = plot([nad(x) = (med/cosd(sig)) * exp(-((x - cosd(med))^2 / (2*(cosd(sig))^2)))], -10, 10, Guide.xlabel("Brightness of the input color"), Guide.ylabel("Angle of the output color"))
+        p1 = plot(x=brightness, y=angle, Geom.point, Geom.line, Geom.smooth, Guide.xlabel("Brightness of the input color"), Guide.ylabel("Angle of the output color"), Theme(panel_fill=colorant"black"))
+        p0 = plot([nad(x) = (med/cosd(sig)) * exp(-((x - cosd(med))^2 / (2*(cosd(sig))^2)))], -10, 10, Guide.xlabel("Brightness of the input color"), Guide.ylabel("Angle of the output color"), Theme(panel_fill=colorant"black"))
         draw(PNG("/home/mxar/Documents/GIT_REPOs/HPICodeNight2016/DataMining/Images/angle_distribution.png", 12inch, 9inch), p0)
         draw(PNG("/home/mxar/Documents/GIT_REPOs/HPICodeNight2016/DataMining/Images/angle-variance_brightness_relation.png", 12inch, 9inch), p1)
 
