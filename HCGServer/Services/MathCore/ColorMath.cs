@@ -5,9 +5,8 @@ using System;
 namespace HCGServer.Services.ColorMath
 {
     using static System.Math;
-    public class ColorMath : IColorMath 
+    public class ColorMath : IColorMath
     {
-        protected ILogger _logger { get; }
         private static Random CSP = new Random();
         private static readonly double SIG = 15.903165825358679 / 255.0;
         private static readonly double[] COEF = new double[] {
@@ -19,6 +18,7 @@ namespace HCGServer.Services.ColorMath
             +35.86253191726658
         };
 
+        protected ILogger _logger { get; }
         public ColorMath(ILoggerFactory loggerFactory) 
         {
             _logger = loggerFactory.CreateLogger(GetType().Namespace);
@@ -52,12 +52,10 @@ namespace HCGServer.Services.ColorMath
                     ROMA[2, 1] = (Axis[1] * Axis[2] * (1 - Cos(Angle))) + (Axis[0] * Sin(Angle));   // Z-Row
                     ROMA[2, 2] = Cos(Angle) + (Pow(Axis[2], 2) * (1 - Cos(Angle)));                 // 
                     return new Tuple<bool, Vector<double>>(false, ROMA.Multiply(V));
-                } catch (Exception ex) {
-                    _logger.LogCritical(ex.ToString());
+                } catch (Exception) {
                     return new Tuple<bool, Vector<double>>(false, null);
                 }
             } else {
-                _logger.LogWarning("Aborted the calculation for a combination, due to invalid parameters!");
                 return new Tuple<bool, Vector<double>>(false, null);
             }
         }

@@ -13,7 +13,7 @@ namespace HCGServer.Services.HexConverter
         {
             _logger = loggerFactory.CreateLogger(GetType().Namespace);
         }
-
+        
         public string Vector2Hex(Vector<double> CV)
         {
             if (CV != null) {
@@ -30,7 +30,6 @@ namespace HCGServer.Services.HexConverter
             if (string.IsNullOrEmpty(CC)) {
                 return null;
             } else {
-                CC = CC.Trim(new char[]{ '#', '"' });
                 if (CC.Length == 3 || CC.Length == 4) { 
                     CC = String.Concat(CC, CC); 
                 }

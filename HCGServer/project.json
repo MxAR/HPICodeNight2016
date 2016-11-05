@@ -16,23 +16,16 @@
     "Microsoft.Extensions.Logging.Console": "1.0.0",
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
-    "Microsoft.EntityFrameworkCore": "1.0.1",
-    "Microsoft.EntityFrameworkCore.SQLite": "1.0.1",
-    "Microsoft.EntityFrameworkCore.Tools": "1.0.0-preview3-final",
-    "Microsoft.NETCore.Portable.Compatibility": "1.0.2",
-    "Microsoft.EntityFrameworkCore.Design": {
-      "version": "1.0.0-*",
-      "type": "build"
-    },
     "Newtonsoft.Json": "9.0.1",
     "NLog": "4.4.0-beta13",
     "NLog.Extensions.Logging": "1.0.0-rtm-alpha2",
-    "NLog.Web": "4.2.1",
     "MathNet.Numerics": "3.13.1",
     "NLog.Web.AspNetCore": "4.2.4",
-    "RestSharp": "105.2.3",
     "NLog.Config": "4.3.6.1",
-    "NLog.Schema": "4.3.6.1"
+    "NLog.Schema": "4.3.6.1",
+    "Microsoft.NETCore.Portable.Compatibility": "1.0.1",
+    "NETStandard.Library": "1.6.0",
+    "System.Runtime.Serialization.Primitives": "4.1.1"
   },
 
   "tools": {
@@ -40,11 +33,14 @@
   },
 
   "frameworks": {
-    "netcoreapp1.0": {
+    "netcoreapp1.0":{
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.1"
+        }
+      },
       "imports": [
-        "net46",
-        "dnxcore50",
-        "dotnet5.6",
         "portable-net45+win8"
       ]
     }

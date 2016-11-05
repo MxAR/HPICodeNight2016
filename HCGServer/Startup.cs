@@ -43,7 +43,7 @@ namespace HCGServer
             env.ConfigureNLog("nlog.config");
 
             // Log the Startup of the application
-            Services.Logs.LogManagement.SetupLogManagement(loggerFactory, env);
+            HCGServer.Services.Logs.LogManagement.SetupLogManagement(loggerFactory, env);
 
             app.UseMvc();
         }
