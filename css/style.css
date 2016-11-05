@@ -17,9 +17,123 @@ a {
 	text-decoration: none;
 }
 
+/* NAV */
 
+.nav {
+	width: calc(100% - 40px);
+	display: inline-block;
+	padding: 15px 20px 12px 20px;
+	background: #fff;
+}
 
+.nav .logo {
+	float: left;
+	display: inline-block;
+}
 
+.nav .logo p {
+	font-weight: 700;
+	font-size: 20px;
+	color: #333;
+}
 
+.nav .menu {
+	float: right;
+}
+
+.nav .menu input {
+	width: 150px;
+	border: 1px solid #ccc;
+	background: rgba(0,0,0,0);
+	padding: 5px;
+	border-radius: 3px;
+	margin-right: 5px;
+}
+
+.nav .menu button {
+	width: 50px;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	background: #fff;
+}
+
+/* BIG COLOR */
+
+.bigColor {
+	width: 100%;
+	display: inline-block;
+	border-top: 1px solid #ccc;
+}
+
+.bigColor .halfColor {
+	width: calc(50% - 70px);
+	background: #fff;
+	padding: 25px 35px;
+	float: left;
+	display: inline-block;
+}
+
+.bigColor .halfColor .small {
+	font-size: 14px;
+	font-weight: 400;
+	margin-bottom: 5px;
+	line-height: 18px;
+}
+
+.bigColor .halfColor .medium {
+	font-size: 22px;
+	font-weight: 500;
+	margin-bottom: 10px;
+	line-height: 25px;
+}
+
+.bigColor .halfColor .text {
+	font-size: 16px;
+	font-weight: 400;
+	margin-bottom: 10px;
+	line-height: 25px;
+	width: 90%;
+	display: inline-block;
+}
+
+.bigColor .halfColor .large {
+	font-size: 60px;
+	font-weight: 700;
+	margin: 25px 0 30px 0;
+}
+
+/* FOOTER */
+
+.footer {
+	display: inline-block;
+	width: 100%;
+	padding: 20px 0;
+	text-align: center;
+}
+
+.footer hr {
+	width: 200px;
+	margin: 20px auto;
+	border: none;
+	border-top: 1px solid #ccc;
+}
+
+.footer p {
+	font-size: 12px;
+	font-weight: 300;
+	color: #777;
+}
+
+.footer a {
+	color: black;
+	font-weight: 500;
+}
+
+@media screen and (max-width: 500px) {
+	.footer hr {
+		width: 100px;
+	}
+}
 
 
