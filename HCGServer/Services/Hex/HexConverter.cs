@@ -45,5 +45,15 @@ namespace HCGServer.Services.HexConverter
                 }
             }
         }
+
+        public Vector<double> RRGBVector()
+        { 
+            Vector<double> V = Vector<double>.Build.Dense(3);
+            Random R = new Random(); 
+            V[0] = R.Next(0, 255);
+            V[1] = R.Next(0, 255);
+            V[2] = R.Next(0, 255);
+            return V;
+        }
     }
 }
