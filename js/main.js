@@ -75,6 +75,9 @@ function hsvCut (hsv) {
 	return hsv + '%';
 }
 
+var colorOne = '#FFFFFF';
+var colorTwo = '#000000';
+
 function hexSearch() {
 	var hex = $('#hexSearch').val().replace(/\#/g, '');
 	if (hex.length == 0 || hex.length == 3 || hex.length == 6) {
@@ -99,8 +102,11 @@ function hexSearch() {
 		return;
 	}
 
-	// var color0 = '#eb011b';
+	// var color0 = '#7822c8';
 	// var color1 = '#fafffd';
+
+	// colorOne = color0;
+	// colorTwo = color1;
 
 	// // Color For Loop
 	// for (var i = 0; i < 2; i++) {
@@ -136,6 +142,9 @@ function hexSearch() {
 			var color0 = '#' + response[0].toUpperCase();
 			var color1 = '#' + response[1].toUpperCase();
 
+			colorOne = color0;
+			colorTwo = color1;
+
 			// Color For Loop
 			for (var i = 0; i < 2; i++) {
 				// Background & Text Color Changes
@@ -165,17 +174,17 @@ function hexSearch() {
 		dataType: 'json'
 	});
 
-	// var rgb = hexToRgb(hex);
-	// $('#rgb').html('rgb(' + rgb[0] + ', ' + rgb[1] + ', ' + rgb[2] + ')');
-	// var hsv = rgbToHsv(rgb[0],rgb[1],rgb[2])
-	// $('#hsv').html('hsv(' + hsv[0].toPrecision(3) + ', ' + hsvCut(hsv[1]) + ', ' + hsvCut(hsv[2]) + ')');
-	// for (var i = 0; i <= 20; i++) {
-	//   var color = lum(hex, ((i * -0.1) + 1));
-	//   $('#box' + i).css('background', color);
-	//   document.getElementById('text' + i).innerHTML = color + '<br><span>' + color + '</span>';
-	// }
 }
 
-hexSearch('#FFFFFF');
+function search (colorCode) {
+	var color = colorCode.split('');
+	var i = color[0] == '0' ? colorOne : colorTwo;
+	var j = color.length > 2 ? color[1] + color[2] : color[1];
+	var shade = (lum(i, ((j * -0.1) + 1))).toUpperCase();
+	$('#hexSearch').val(shade);
+	hexSearch();
+}
+
+hexSearch();
 
 
