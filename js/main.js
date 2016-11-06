@@ -128,8 +128,8 @@ function hexSearch() {
 	// }
 
 	$.ajax({
-		type: "POST",
-		url: "http://172.16.62.125:5000/api/color",
+		type: "GET",
+		url: "http://localhost:5000/api/color",
 		data: {IC: hex},
 		success: function(response){
 
@@ -161,7 +161,8 @@ function hexSearch() {
 				}
 			}
 
-		}
+		},
+		dataType: 'json'
 	});
 
 	// var rgb = hexToRgb(hex);

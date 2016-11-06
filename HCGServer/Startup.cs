@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,6 +30,17 @@ namespace HCGServer
             // user defined services
             services.AddTransient<Services.HexConverter.IHexConverter, Services.HexConverter.HexConverter>();
             services.AddTransient<Services.ColorMath.IColorMath, Services.ColorMath.ColorMath>();
+
+            // enable cross origin requests
+            CorsPolicyBuilder CB = new CorsPolicyBuilder();
+            CB.AllowAnyHeader();
+            CB.AllowAnyMethod();
+            CB.AllowAnyOrigin();
+            CB.AllowCredentials();
+
+            services.AddCors(options => {
+                options.AddPolicy("AllowAll", CB.Build());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +56,8 @@ namespace HCGServer
 
             // Log the Startup of the application
             HCGServer.Services.Logs.LogManagement.SetupLogManagement(loggerFactory, env);
+
+            app.UseCors("AllowAll");
 
             app.UseMvc();
         }
