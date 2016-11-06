@@ -33,10 +33,10 @@ namespace HCGServer
 
             // enable cross origin requests
             CorsPolicyBuilder CB = new CorsPolicyBuilder();
+            CB.AllowCredentials();
             CB.AllowAnyHeader();
             CB.AllowAnyMethod();
             CB.AllowAnyOrigin();
-            CB.AllowCredentials();
 
             services.AddCors(options => {
                 options.AddPolicy("AllowAll", CB.Build());

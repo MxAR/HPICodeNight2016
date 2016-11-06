@@ -5,6 +5,8 @@ using System;
 
 namespace HCGServer.Services.HexConverter
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using static System.Math;
     public class HexConverter : IHexConverter
     {
@@ -51,9 +53,8 @@ namespace HCGServer.Services.HexConverter
                 }
                 int VecSize = Convert.ToInt32(Round(CC.Length*0.5));
                 Vector<double> OV = Vector<double>.Build.Dense(VecSize);
-                for (int i = 0; i < VecSize; i++) { 
-                    OV.At(i, Convert.ToDouble(Int32.Parse(CC.Substring((Max(i-1, 0)*2), 2), NumberStyles.HexNumber))); 
-                }
+                List<string> HEX = Split(CC, 2);
+                for (int i = 0; i < HEX.Count; i++) { OV[i] = Convert.ToDouble(int.Parse(HEX[i], NumberStyles.HexNumber)); }
                 return OV;
             }
         }
@@ -70,6 +71,12 @@ namespace HCGServer.Services.HexConverter
             V[1] = R.Next(0, 255);
             V[2] = R.Next(0, 255);
             return V;
+        }
+
+        private static List<string> Split(string str, int chunkSize)
+        {
+            return Enumerable.Range(0, str.Length / chunkSize)
+                .Select(i => str.Substring(i * chunkSize, chunkSize)).ToList();
         }
     }
 }
