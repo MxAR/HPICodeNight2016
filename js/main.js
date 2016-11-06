@@ -1,5 +1,55 @@
 // 2016 HPI Code Night || Veconomy Main JS
 
+// GEN SHADES HTML
+
+for(var i = 0; i < 2; i++) {
+	var title0 = document.createElement("p");
+	title0.className = 'title';
+	var title0Conent = document.createTextNode("Lighter Shades");
+	title0.appendChild(title0Conent);
+	document.getElementById('color' + i).appendChild(title0);
+	var wrapper0 = document.createElement("div");
+	wrapper0.className = 'wrapper';
+	for(var j = 9; j >= 0; j--) {
+		var link = document.createElement("a");
+		link.href = 'javascript:search(' + "'" + i + j + "'" + ')';
+		var shadeBox = document.createElement("div");
+		shadeBox.className = 'shadeBox';
+		link.appendChild(shadeBox);
+		var colorBox = document.createElement("div");
+		colorBox.className = 'colorBox color' + i + j;
+		shadeBox.appendChild(colorBox);
+		var textColor = document.createElement("p");
+		textColor.id = 'textColor' + i + j;
+		shadeBox.appendChild(textColor);
+		wrapper0.appendChild(link);
+	}
+	document.getElementById('color' + i).appendChild(wrapper0);
+	
+	var title1 = document.createElement("p");
+	title1.className = 'title';
+	var title1Conent = document.createTextNode("Darker Shades");
+	title1.appendChild(title1Conent);
+	document.getElementById('color' + i).appendChild(title1);
+	var wrapper1 = document.createElement("div");
+	wrapper1.className = 'wrapper';
+	for(var j = 11; j <= 20; j++) {
+		var link = document.createElement("a");
+		link.href = 'javascript:search(' + "'" + i + j + "'" + ')';
+		var shadeBox = document.createElement("div");
+		shadeBox.className = 'shadeBox';
+		link.appendChild(shadeBox);
+		var colorBox = document.createElement("div");
+		colorBox.className = 'colorBox color' + i + j;
+		shadeBox.appendChild(colorBox);
+		var textColor = document.createElement("p");
+		textColor.id = 'textColor' + i + j;
+		shadeBox.appendChild(textColor);
+		wrapper1.appendChild(link);
+	}
+	document.getElementById('color' + i).appendChild(wrapper1);
+}
+
 function cutHex(h) {
   	return (h.charAt(0) == "#") ? h.substring(1, 7) : h
 }
