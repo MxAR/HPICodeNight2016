@@ -17,49 +17,305 @@
     <meta name="author" content="Veconomy">
     <meta name="description" content="Harmonic color generation via machine learning">
     <meta name="keywords" content="color, generation, harmonic, matching colors, colours">
+
   </head>
   <body>
 
     <!-- Body Content -->
 
+    <!-- Nav / Top -->
     <div class="nav">
       <div class="logo">
-        <p>Vaconomy</p>
+        <a href="javascript:location.reload()">Vaconomy</a>
       </div>
       <div class="menu">
-        <input placeholder="Hex Code" id="hexSearch"/><button>Gen</button>
+        <input placeholder="Hex Code" id="hexSearch"/><button id="genSubmit"  onclick="hexSearch()">Gen</button>
       </div>
     </div>
 
+    <!-- Notifications -->
+    <div class="notification">
+      <div id="notificationText"></div>
+    </div>
+
+    <!-- Large Color Displays -->
     <div class="bigColor">
-      <div id="color00">
-        <p class="medium textColor10" id="hex"></p>
-        <p class="small textColor10" id="rgb"></p>
-        <p class="small textColor10" id="hsv"></p>
+      <div class="halfColor" id="color010">
+        <p class="medium textColor110" id="hex0">#FFFFFF</p>
+        <p class="small textColor110" id="rgb0">rgb(255, 255, 255)</p>
+        <p class="small textColor110" id="hsv0">hsv(0, 0%, 0%)</p>
 
-        <p class="large textColor10">Aa Bb Cc</p>
+        <p class="large textColor110">Aa Bb Cc</p>
 
-        <p class="small textColor10">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod.Tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+        <p class="text textColor110">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod.Tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
       </div>
-      <div id="color10">
-        <p class="medium textColor00" id="hex"></p>
-        <p class="small textColor00" id="rgb"></p>
-        <p class="small textColor00" id="hsv"></p>
+      <div class="halfColor" id="color110">
+        <p class="medium textColor010" id="hex1">#FFFFFF</p>
+        <p class="small textColor010" id="rgb1">rgb(255, 255, 255)</p>
+        <p class="small textColor010" id="hsv1">hsv(0, 0%, 0%)</p>
 
-        <p class="large textColor00">Aa Bb Cc</p>
+        <p class="large textColor010">Aa Bb Cc</p>
 
-        <p class="small textColor00">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod.Tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+        <p class="text textColor010">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod.Tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+      </div>
+    </div>
+
+    <!-- SHADES -->
+
+    <div class="shades">
+      <div class="halfShades" id="color0">
+        <p class="title">Lighter Shades</p>
+        
+        <div class="wrapper">
+          <div class="shadeBox">
+            <div class="colorBox color09"></div>
+            <p id="textColor09"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color08"></div>
+            <p id="textColor08"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color07"></div>
+            <p id="textColor07"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color06"></div>
+            <p id="textColor06"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color05"></div>
+            <p id="textColor05"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color04"></div>
+            <p id="textColor04"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color03"></div>
+            <p id="textColor03"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color02"></div>
+            <p id="textColor02"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color01"></div>
+            <p id="textColor01"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color00"></div>
+            <p id="textColor00"></p>
+          </div>
+        </div>
+
+        <p class="title">Darker Shades</p>
+
+        <div class="wrapper">
+          <div class="shadeBox">
+            <div class="colorBox color011"></div>
+            <p id="textColor011"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color012"></div>
+            <p id="textColor012"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color013"></div>
+            <p id="textColor013"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color014"></div>
+            <p id="textColor014"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color015"></div>
+            <p id="textColor015"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color016"></div>
+            <p id="textColor016"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color017"></div>
+            <p id="textColor017"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color018"></div>
+            <p id="textColor018"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color019"></div>
+            <p id="textColor019"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color020"></div>
+            <p id="textColor020"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="halfShades" id="color1">
+        <p class="title">Lighter Shades</p>
+        
+        <div class="wrapper">
+
+          <div class="shadeBox">
+            <div class="colorBox color19"></div>
+            <p id="textColor19"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color18"></div>
+            <p id="textColor18"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color17"></div>
+            <p id="textColor17"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color16"></div>
+            <p id="textColor16"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color15"></div>
+            <p id="textColor15"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color14"></div>
+            <p id="textColor14"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color13"></div>
+            <p id="textColor13"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color12"></div>
+            <p id="textColor12"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color11"></div>
+            <p id="textColor11"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color10"></div>
+            <p id="textColor10"></p>
+          </div>
+        </div>
+
+        <p class="title">Darker Shades</p>
+
+        <div class="wrapper">
+          <div class="shadeBox">
+            <div class="colorBox color111"></div>
+            <p id="textColor111"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color112"></div>
+            <p id="textColor112"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color113"></div>
+            <p id="textColor113"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color114"></div>
+            <p id="textColor114"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color115"></div>
+            <p id="textColor115"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color116"></div>
+            <p id="textColor116"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color117"></div>
+            <p id="textColor117"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color118"></div>
+            <p id="textColor118"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color119"></div>
+            <p id="textColor119"></p>
+          </div>
+
+          <div class="shadeBox">
+            <div class="colorBox color120"></div>
+            <p id="textColor120"></p>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Footer -->
     <div class="footer">
-      <p>2016 <a target="_blank" href="http://hpi.com">HPI</a> Code Night Projekt</p>
+      <p>2016 <a target="_blank" href="http://hpi.de">HPI</a> Code Night Projekt</p>
     </div>
 
     <!-- JQuery -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <!-- Other Scripts (JS) -->
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript">
 
+      $input = $('#hexSearch');
+      
+      $input.focusin(function(){
+
+         this.style.border = "1px solid #999";
+
+      });
+
+      $input.focusout('input',function(e){
+
+        var value = this.value;
+
+        if(value !== ""){
+          this.style.border = "1px solid #999";
+        }else if(value === ""){
+          this.style.border = "1px solid #ccc";
+        }
+
+      });
+
+    </script>
   </body>
 </html>
