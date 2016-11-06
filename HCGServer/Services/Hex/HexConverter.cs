@@ -14,37 +14,54 @@ namespace HCGServer.Services.HexConverter
             _logger = loggerFactory.CreateLogger(GetType().Namespace);
         }
         
+        /// <summary>
+        /// converts Vector to even hex string
+        /// </summary>
+        /// <param name="CV"> double vector </param>
+        /// <returns></returns>
         public string Vector2Hex(Vector<double> CV)
         {
             if (CV != null) {
                 string CC = string.Empty;
-                for (int i = 0; i < CV.Count; i++) { CC = string.Concat(CC, CV[i].ToString("X")); }
+                string sw = string.Empty;
+                for (int i = 0; i < CV.Count; i++) { 
+                    sw = Convert.ToInt32(Floor(CV[i])).ToString("X"); 
+                    sw = sw.Length == 1 ? string.Concat(sw, sw) : sw;
+                    CC = string.Concat(CC, sw); 
+                }
                 return CC;
             } else {
+                _logger.LogWarning("Couldn't convert vector to hex-string, due to missingness of a vector!");
                 return string.Empty;
             }
         }
 
+        /// <summary>
+        /// Convert 
+        /// </summary>
+        /// <param name="CC"> hex string </param>
+        /// <returns></returns>
         public Vector<double> Hex2Vector(string CC)
         {
-            if (string.IsNullOrEmpty(CC)) {
-                return null;
-            } else {
-                if (CC.Length == 3 || CC.Length == 4) { 
-                    CC = String.Concat(CC, CC); 
+            if (string.IsNullOrEmpty(CC)) { return null; } else {
+                if (CC.Length < 6){ CC = string.Concat(CC, CC); } else {
+                    if (CC.Length % 2 == 1) {
+                        CC = string.Concat(CC, CC); 
+                    }
                 }
-
-                if (CC.Length == 6 || CC.Length == 8) {
-                    int VecSize = Convert.ToInt32(Round(CC.Length*0.5));
-                    Vector<double> OV = Vector<double>.Build.Dense(VecSize);
-                    for (int i = 0; i < VecSize; i++) { OV.At(i, Convert.ToDouble(Int32.Parse(CC.Substring(i*2, i*2+1), NumberStyles.HexNumber))); }
-                    return OV;
-                } else {
-                    return null;
+                int VecSize = Convert.ToInt32(Round(CC.Length*0.5));
+                Vector<double> OV = Vector<double>.Build.Dense(VecSize);
+                for (int i = 0; i < VecSize; i++) { 
+                    OV.At(i, Convert.ToDouble(Int32.Parse(CC.Substring((Max(i-1, 0)*2), 2), NumberStyles.HexNumber))); 
                 }
+                return OV;
             }
         }
 
+        /// <summary>
+        /// Generates a random color vector
+        /// </summary>
+        /// <returns></returns>
         public Vector<double> RRGBVector()
         { 
             Vector<double> V = Vector<double>.Build.Dense(3);

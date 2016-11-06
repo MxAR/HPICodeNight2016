@@ -27,7 +27,10 @@ namespace HCGServer.ApiController
         public IEnumerable<string> GetCombo(string IC)
         {
             Vector<double> IV = string.IsNullOrEmpty(IC) ? HCS.RRGBVector() : HCS.Hex2Vector(IC);
-            if (IV == null) { return null; } else {
+            if (IV == null) { 
+                _logger.LogWarning("Denied a Combo-Request, due to flawed input parameters!");
+                return null; 
+            } else {
                 Tuple<bool, Vector<double>> RE = CMS.GetCombo(IV);
                 return RE.Item1 ? new List<string>() { HCS.Vector2Hex(IV), HCS.Vector2Hex(RE.Item2) } : new List<string>(2);
             }
@@ -43,7 +46,10 @@ namespace HCGServer.ApiController
                     Tuple<bool, Vector<double>> RE = CMS.GetCombo(IV, DRM.Precision);
                     return RE.Item1 ? new List<string>() { HCS.Vector2Hex(IV), HCS.Vector2Hex(RE.Item2) } : new List<string>(2);
                 }
-            } else { return new List<string>(2); }
+            } else { 
+                _logger.LogWarning("Denied a Precision-Combo-Request, due to flawed input parameters!");
+                return new List<string>(2); 
+            }
         }
 
         public class DetailedRequestModel
