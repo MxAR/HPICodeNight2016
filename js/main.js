@@ -205,13 +205,12 @@ function hexSearch() {
 	// 	var color = i == 0 ? color0 : color1;
 	// 	$('#color' + i + '10').css('background-color', color);
 	// 	$('.textColor' + i + '10').css('color', color);
+	// 	$('#searchColor' + i).attr('href', 'javascript:search(' + "'" + i + "', true)");
 	// 	// HEX Output
 	// 	$('#hex' + i).html(color);
-	// 	$('#hex' + i).attr('data-clipboard-text', color);
 	// 	// RGB Output
 	// 	var rgb = hexToRgb(color);
 	// 	$('#rgb' + i).html('rgb(' + rgb[0] + ', ' + rgb[1] + ', ' + rgb[2] + ')');
-	// 	$('#rgb' + i).attr('data-clipboard-text', 'rgb(' + rgb[0] + ', ' + rgb[1] + ', ' + rgb[2] + ')');
 	// 	// HSV Output
 	// 	var hsv = rgbToHsv(rgb[0],rgb[1],rgb[2]);
 	// 	$('#hsv' + i).html('hsv(' + Math.round(hsv[0]) + ', ' + hsvCut(hsv[1]) + ', ' + hsvCut(hsv[2]) + ')');
@@ -247,13 +246,12 @@ function hexSearch() {
 				var color = i == 0 ? color0 : color1;
 				$('#color' + i + '10').css('background-color', color);
 				$('.textColor' + i + '10').css('color', color);
+				$('#searchColor' + i).attr('href', 'javascript:search(' + "'" + i + "', true)");
 				// HEX Output
 				$('#hex' + i).html(color);
-				$('#hex' + i).attr('data-clipboard-text', color);
 				// RGB Output
 				var rgb = hexToRgb(color);
 				$('#rgb' + i).html('rgb(' + rgb[0] + ', ' + rgb[1] + ', ' + rgb[2] + ')');
-				$('#rgb' + i).attr('data-clipboard-text', 'rgb(' + rgb[0] + ', ' + rgb[1] + ', ' + rgb[2] + ')');
 				// HSV Output
 				var hsv = rgbToHsv(rgb[0],rgb[1],rgb[2]);
 				$('#hsv' + i).html('hsv(' + Math.round(hsv[0]) + ', ' + hsvCut(hsv[1]) + ', ' + hsvCut(hsv[2]) + ')');
