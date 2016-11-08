@@ -109,6 +109,7 @@ a {
 	width: calc(50% - 70px);
 	background: #fff;
 	padding: 30px 35px 25px 35px;
+	cursor: default;
 	float: left;
 	display: inline-block;
 }

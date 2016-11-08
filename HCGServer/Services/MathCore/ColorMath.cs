@@ -41,8 +41,8 @@ namespace HCGServer.Services.ColorMath
 
                     do {
                         Vector<double> Axis = Vector<double>.Build.Dense(3);                //
-                        double theta = CSP.Next(0, 360) * CSP.NextDouble();   //
-                        double psi = CSP.Next(0, 180) * CSP.NextDouble();     // Generation of 
+                        double theta = CSP.Next(0, 360) * CSP.NextDouble();                 //
+                        double psi = CSP.Next(0, 180) * CSP.NextDouble();                   // Generation of 
                         Axis.At(0, (Sin(theta) * Cos(psi)));                                // a random axis 
                         Axis.At(1, (Sin(theta) * Sin(psi)));                                //
                         Axis.At(2, Cos(theta));                                             //
