@@ -37,10 +37,11 @@ namespace HCGServer.Services.ColorMath
                     double lum = V.L2Norm() / Sqrt(3.0*(Pow(255, 2)));
                     double RefAngle = (COEF[0] * Pow((lum - COEF[1]), 4)) + (COEF[2] * Pow(lum, 3)) + (COEF[3] * Pow(lum, 2)) + (COEF[4] * (lum)) + (COEF[5]);
                     double Angle = RefAngle + (Exp(Pow((CSP.NextDouble()-0.5), 2) * -7.5) * P * SIG);
+
+                    Vector<double> Axis = Vector<double>.Build.Dense(3);
                     Vector<double> OV = Vector<double>.Build.Dense(3);
 
                     do {
-                        Vector<double> Axis = Vector<double>.Build.Dense(3);                //
                         double theta = CSP.Next(0, 360) * CSP.NextDouble();                 //
                         double psi = CSP.Next(0, 180) * CSP.NextDouble();                   // Generation of 
                         Axis.At(0, (Sin(theta) * Cos(psi)));                                // a random axis 
@@ -62,8 +63,10 @@ namespace HCGServer.Services.ColorMath
                         OV = ROMA.Multiply(V);
                     } while(!IsCPositive(OV));
 
-                    double MAX = OV.Maximum();
-                    if (MAX > 255.0) { OV = OV.Divide(MAX); OV = OV.Multiply(255); }
+                    if (OV.Maximum() > 255.0) {
+                        OV = Normalize(OV);
+                        OV = OV.Multiply(255);
+                    }
 
                     return new Tuple<bool, Vector<double>>(true, OV);
                 } catch (Exception ex) {
@@ -86,6 +89,22 @@ namespace HCGServer.Services.ColorMath
             bool R = true;
             for (int i = 0; i < V.Count; i++) { R = R && V[i] >= 0; }
             return R;
+        }
+
+        private Vector<double> Normalize(Vector<double> V)
+        {
+            return V.Divide(V.Maximum());
+        }
+
+        private Vector<double> GetOrthogonalVector(Vector<double> V) 
+        {
+            // int ReferenceIndex = CSP.Next(0, V.Count);
+            // double ReferenceScalar = Min((-1 + CSP.NextDouble() * CSP.Next(0, 4)), 1);
+
+            // Vector<double> OV = Vector<double>.Build.Dense(V.Count);
+            // OV[ReferenceIndex] = ReferenceScalar;
+            // return null;
+            return null;
         }
     }
 }
