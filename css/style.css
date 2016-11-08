@@ -120,11 +120,30 @@ a {
 	line-height: 18px;
 }
 
+#rgb0, #rgb1 {
+	cursor: pointer;
+	-webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+     -khtml-user-select: none; /* Konqueror */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  not supported by any browser */
+}
+
 .bigColor .halfColor .medium {
 	font-size: 26px;
 	font-weight: 700;
 	margin-bottom: 10px;
 	line-height: 25px;
+	cursor: pointer;
+	-webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+     -khtml-user-select: none; /* Konqueror */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  not supported by any browser */
 }
 
 .bigColor .halfColor .text {

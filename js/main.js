@@ -12,7 +12,7 @@ for(var i = 0; i < 2; i++) {
 	wrapper0.className = 'wrapper';
 	for(var j = 9; j >= 0; j--) {
 		var link = document.createElement("a");
-		link.href = 'javascript:search(' + "'" + i + j + "'" + ')';
+		link.href = 'javascript:search(' + "'" + i + j + "', true" + ')';
 		var shadeBox = document.createElement("div");
 		shadeBox.className = 'shadeBox';
 		link.appendChild(shadeBox);
@@ -35,7 +35,7 @@ for(var i = 0; i < 2; i++) {
 	wrapper1.className = 'wrapper';
 	for(var j = 11; j <= 20; j++) {
 		var link = document.createElement("a");
-		link.href = 'javascript:search(' + "'" + i + j + "'" + ')';
+		link.href = 'javascript:search(' + "'" + i + j + "', true" + ')';
 		var shadeBox = document.createElement("div");
 		shadeBox.className = 'shadeBox';
 		link.appendChild(shadeBox);
@@ -207,9 +207,11 @@ function hexSearch() {
 	// 	$('.textColor' + i + '10').css('color', color);
 	// 	// HEX Output
 	// 	$('#hex' + i).html(color);
+	// 	$('#hex' + i).attr('data-clipboard-text', color);
 	// 	// RGB Output
 	// 	var rgb = hexToRgb(color);
 	// 	$('#rgb' + i).html('rgb(' + rgb[0] + ', ' + rgb[1] + ', ' + rgb[2] + ')');
+	// 	$('#rgb' + i).attr('data-clipboard-text', 'rgb(' + rgb[0] + ', ' + rgb[1] + ', ' + rgb[2] + ')');
 	// 	// HSV Output
 	// 	var hsv = rgbToHsv(rgb[0],rgb[1],rgb[2]);
 	// 	$('#hsv' + i).html('hsv(' + Math.round(hsv[0]) + ', ' + hsvCut(hsv[1]) + ', ' + hsvCut(hsv[2]) + ')');
@@ -247,9 +249,11 @@ function hexSearch() {
 				$('.textColor' + i + '10').css('color', color);
 				// HEX Output
 				$('#hex' + i).html(color);
+				$('#hex' + i).attr('data-clipboard-text', color);
 				// RGB Output
 				var rgb = hexToRgb(color);
 				$('#rgb' + i).html('rgb(' + rgb[0] + ', ' + rgb[1] + ', ' + rgb[2] + ')');
+				$('#rgb' + i).attr('data-clipboard-text', 'rgb(' + rgb[0] + ', ' + rgb[1] + ', ' + rgb[2] + ')');
 				// HSV Output
 				var hsv = rgbToHsv(rgb[0],rgb[1],rgb[2]);
 				$('#hsv' + i).html('hsv(' + Math.round(hsv[0]) + ', ' + hsvCut(hsv[1]) + ', ' + hsvCut(hsv[2]) + ')');
@@ -266,20 +270,23 @@ function hexSearch() {
 					}
 				}
 			}
-
 		},
 		dataType: 'json'
 	});
 
 }
 
-function search (colorCode) {
+function search (colorCode, condition) {
 	var color = colorCode.split('');
 	var i = color[0] == '0' ? colorOne : colorTwo;
 	var j = color.length > 2 ? color[1] + color[2] : color[1];
 	var shade = (lum(i, ((j * -0.1) + 1))).toUpperCase();
-	$('#hexSearch').val(shade);
-	hexSearch();
+	if (condition) {
+		$('#hexSearch').val(shade);
+		hexSearch();
+	} else {
+		return shade;
+	}
 }
 
 hexSearch();

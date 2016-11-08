@@ -44,7 +44,7 @@
         <p class="medium textColor110" id="hex0">#FFFFFF</p>
         <p class="small textColor110" id="rgb0">rgb(255, 255, 255)</p>
         <p class="small textColor110" id="hsv0">hsv(0, 0%, 0%)</p>
-        <p class="small textColor110" id="cymk0">cymk(0, 0%, 0%)</p>
+        <p class="small textColor110" id="cymk0">cymk(0.000, 0.000, 0.000, 0.000)</p>
 
         <p class="large textColor110">Aa Bb Cc</p>
 
@@ -54,7 +54,7 @@
         <p class="medium textColor010" id="hex1">#FFFFFF</p>
         <p class="small textColor010" id="rgb1">rgb(255, 255, 255)</p>
         <p class="small textColor010" id="hsv1">hsv(0, 0%, 0%)</p>
-        <p class="small textColor010" id="cymk1">cymk(0, 0%, 0%)</p>
+        <p class="small textColor010" id="cymk1">cymk(0.000, 0.000, 0.000, 0.000)</p>
 
         <p class="large textColor010">Aa Bb Cc</p>
 
@@ -83,8 +83,14 @@
     <!-- JQuery -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <!-- Other Scripts (JS) -->
+    <script type="text/javascript" src="js/clipboard.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript">
+
+      new Clipboard('#hex0');
+      new Clipboard('#hex1');
+      new Clipboard('#rgb0');
+      new Clipboard('#rgb1');
 
       $input = $('#hexSearch');
       
