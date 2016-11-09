@@ -2,9 +2,9 @@
 # CosAngle Sigma: 15.903165825358679 
 # CosAngle Sigma Intervall: 19.959366091907903 <> 51.76569774262526
 
-# BrightnessRelativeAngle Median: 13.4163407720139
-# BrightnessRelativeAngle Sigma: 11.330263267612782
-# BrightnessRelativeAngle SigmaIntervall: 2.0860775044011177 <> 24.746604039626682
+# IbrightnessRelativeAngle Median: 13.4163407720139
+# IbrightnessRelativeAngle Sigma: 11.330263267612782
+# IbrightnessRelativeAngle SigmaIntervall: 2.0860775044011177 <> 24.746604039626682
 
 # Pkg.add("Cairo")
 # Pkg.add("JSON")
@@ -26,32 +26,38 @@ module GAD
     function ProcessData(Response::Array{Any,1})
         h = [0., 0.]
         angle = zeros(100)
-        brightness = zeros(100)
+        Ibrightness = zeros(100)
+        Obrightness = zeros(100)
 
         for i = 1:100
             iv = Convert.ColorHex2Vector(Response[i]["color_one"])
             ov = Convert.ColorHex2Vector(Response[i]["color_two"])
             angle[i] = acosd(min(dot(iv, ov) / (vecnorm(iv) * vecnorm(ov)), 1.0))
-            brightness[i] = RGBBrightness(iv)
+            Ibrightness[i] = RGBBrightness(iv)
+            Obrightness[i] = RGBBrightness(ov)
             if angle[i] > h[2] 
-                h[1] = brightness[i]
+                h[1] = Ibrightness[i]
                 h[2] = angle[i]
             end
         end 
 
-        println(string("hx: ", median(brightness), " hy: ", h[2]))
+        println(string("hx: ", median(Ibrightness), " hy: ", h[2]))
 
         med = median(angle)
         sig = Yamartino(angle)
 
-        p1 = plot(x=brightness, y=angle, Geom.point, Geom.line, Geom.smooth, Guide.xlabel("Brightness of the input color"), Guide.ylabel("Angle of the output color"), Theme(panel_fill=colorant"black"))
+        p2 = plot(x=1:100, y=(Obrightness+Ibrightness), Geom.point, Geom.line, Geom.smooth)
+        draw(PNG("/home/mxar/Documents/GIT_REPOs/Veconomy/DataMining/Images/Brightness_relation.png", 12inch, 9inch), p2)
+
+        p1 = plot(x=Ibrightness, y=angle, Geom.point, Geom.line, Geom.smooth, Guide.xlabel("Brightness of the input color"), Guide.ylabel("Angle of the output color"), Theme(panel_fill=colorant"black"))
+        draw(PNG("/home/mxar/Documents/GIT_REPOs/Veconomy/DataMining/Images/angle-variance_brightness_relation.png", 12inch, 9inch), p1)
+
         p0 = plot([nad(x) = (med/cosd(sig)) * exp(-((x - cosd(med))^2 / (2*(cosd(sig))^2)))], -10, 10, Guide.xlabel("Brightness of the input color"), Guide.ylabel("Angle of the output color"), Theme(panel_fill=colorant"black"))
-        draw(PNG("/home/mxar/Documents/GIT_REPOs/HPICodeNight2016/DataMining/Images/angle_distribution.png", 12inch, 9inch), p0)
-        draw(PNG("/home/mxar/Documents/GIT_REPOs/HPICodeNight2016/DataMining/Images/angle-variance_brightness_relation.png", 12inch, 9inch), p1)
+        draw(PNG("/home/mxar/Documents/GIT_REPOs/Veconomy/DataMining/Images/angle_distribution.png", 12inch, 9inch), p0)
 
         push!(angle, 50); push!(angle, 50);
-        push!(brightness, 0); push!(brightness, 1);
-        FORA.Run(brightness, angle, 100000, 0.2, 20)
+        push!(Ibrightness, 0); push!(Ibrightness, 1);
+        # FORA.Run(Ibrightness, angle, 100000, 0.2, 20)
 
         println(string("Median: ", med, " Sigma: ", sig, " Sigmaintervall: ", med-sig, " <> ", med+sig))
     end

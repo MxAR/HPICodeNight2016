@@ -31,7 +31,7 @@ namespace HCGServer.ApiController
                 _logger.LogWarning("Denied a Combo-Request, due to flawed input parameters!");
                 return null; 
             } else {
-                Tuple<bool, Vector<double>> RE = CMS.GetCombo(IV, 127.5);
+                Tuple<bool, Vector<double>> RE = CMS.GetCombo(IV, 255);
                 return RE.Item1 ? new List<string>() { HCS.Vector2Hex(IV), HCS.Vector2Hex(RE.Item2) } : new List<string>(2);
             }
         }
