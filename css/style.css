@@ -103,13 +103,13 @@ a {
 	width: 100%;
 	display: inline-block;
 	border-bottom: 1px solid #ccc;
+	cursor: cursor;
 }
 
 .bigColor .halfColor {
 	width: calc(50% - 70px);
 	background: #fff;
 	padding: 30px 35px 25px 35px;
-	cursor: default;
 	float: left;
 	display: inline-block;
 }
@@ -123,6 +123,7 @@ a {
 
 #rgb0, #rgb1 {
 	cursor: pointer;
+	width: none;
 	-webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Chrome/Safari/Opera */
      -khtml-user-select: none; /* Konqueror */
@@ -137,6 +138,7 @@ a {
 	font-weight: 700;
 	margin-bottom: 10px;
 	line-height: 25px;
+	width: 0px;
 	cursor: pointer;
 	-webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Chrome/Safari/Opera */
