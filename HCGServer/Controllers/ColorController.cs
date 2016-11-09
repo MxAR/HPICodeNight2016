@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using HCGServer.Services.ColorMath;
 using HCGServer.Services.HexConverter;
@@ -49,6 +50,16 @@ namespace HCGServer.ApiController
             } else { 
                 _logger.LogWarning("Denied a Precision-Combo-Request, due to flawed input parameters!");
                 return new List<string>(2); 
+            }
+        }
+
+        [HttpPost("/upvote")]
+        public IActionResult Upvote(IEnumerable<string> Combo)
+        {
+            if (Combo != null && Combo.Count() == 2) {
+                return Ok();
+            } else {
+                return BadRequest();
             }
         }
 
