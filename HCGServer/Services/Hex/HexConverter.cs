@@ -1,12 +1,12 @@
 using MathNet.Numerics.LinearAlgebra;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System;
 
 namespace HCGServer.Services.HexConverter
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using static System.Math;
     public class HexConverter : IHexConverter
     {
@@ -17,7 +17,7 @@ namespace HCGServer.Services.HexConverter
         }
         
         /// <summary>
-        /// converts Vector to even hex string
+        /// converts Vector to an even hex string
         /// </summary>
         /// <param name="CV"> double vector </param>
         /// <returns></returns>
