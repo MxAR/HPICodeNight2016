@@ -22,12 +22,12 @@ function GetCombo(V, P) {
     do {
         Angle = RefAngle + Math.exp(Math.pow(Math.random()-0.5, 2) * -7.5) * P * SIG;
         if (FT) { Axis = GetOrthogonalUnitVector(V); FT = false } else {
-            var theta = Math.random() * 90;
-            var psi = Math.random() * 90;
-            Axis[0] = Math.sin(theta) * Math.cos(psi);
-            Axis[1] = Math.sin(theta) * Math.sin(psi);
-            Axis[2] = Math.cos(theta);
-            FT = true;
+            var theta = Math.random() * 90;                                 //
+            var psi = Math.random() * 90;                                   //
+            Axis[0] = Math.sin(theta) * Math.cos(psi);                      // manual generation 
+            Axis[1] = Math.sin(theta) * Math.sin(psi);                      // of a random axis
+            Axis[2] = Math.cos(theta);                                      //
+            FT = true;                                                      // 
         }
 
         ROMA[0, 0] = Math.cos(Angle) + (Math.pow(Axis[0], 2) * (1 - Math.cos(Angle)));            //
@@ -53,7 +53,11 @@ function GetCombo(V, P) {
 
 }
 
-function GetOrthogonalUnitVector(V) { return [ -1 * V[2], 0, V[0] ]; }
+function GetOrthogonalUnitVector(V) { 
+    var W = [ (Math.random() * 20) - 10, (Math.random() * 20) - 10, 0 ];
+    W[2] = (V[0] * W[0] + V[1] * W[1]) / (-1 * V[2]);
+    return W;
+}
 
 function L2Norm(V) { return Math.sqrt(Math.pow(V[0], 2), Math.pow(V[1], 2), Math.pow(V[2], 2)); }
 
