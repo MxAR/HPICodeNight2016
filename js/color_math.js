@@ -19,7 +19,8 @@ function GetCombo(V, P = 255.0) {
     if (Math.max(W) == 0) {                                                     // handling of 
         W = W.map(function(x) { return (Math.random() * 255) - 127.5; });       // black color codes
         s = Math.sqrt((W.reduce(function(p, q) { return p + q; }, 0)) / 10);    //
-    } 
+        V = W.map(function(x) { return x / s; });                               //
+    }                                                                           //
 
     console.log(V);
 
