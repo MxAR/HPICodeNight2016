@@ -79,10 +79,7 @@ namespace HCGServer.Services.ColorMath
                         if (OV.Maximum() > 255.0) { OV = OV.Divide(OV.Maximum()).Multiply(255); }
                         for (int i = 0; i < OV.Count; i++) { OV[i] = Max(0, Min(OV[i], 255)); }
                     } while ((V.DotProduct(OV) / (V.L2Norm() * OV.L2Norm())) > 0.7);
-
-                    double Complum = Max((1.5 - (CSP.NextDouble() + lum)), 0) * Sqrt(3.0*(Pow(255, 2)));
-                    OV *= 1 / Sqrt() 
-                    
+        
                     return new Tuple<bool, Vector<double>>(true, OV);
                 } catch (Exception ex) {
                     _logger.LogCritical(ex.ToString());
