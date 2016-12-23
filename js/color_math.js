@@ -22,12 +22,8 @@ function GetCombo(V, P = 255.0) {
         V = W.map(function(x) { return x / s; });                               //
     }                                                                           //
 
-    console.log(V);
-
     var Lum = L2Norm(V) / MLUM;                                                                                                                             // calculation of 
     var RefAngle = (COEF[0] * Math.pow((Lum - COEF[1]), 4)) + (COEF[2] * Math.pow(Lum, 3)) + (COEF[3] * Math.pow(Lum, 2)) + (COEF[4] * (Lum)) + (COEF[5]);  // the angle 
-
-    console.log(RefAngle);
 
     do {
         Angle = RefAngle + Math.exp(Math.pow(Math.random()-0.5, 2) * -7.5) * P * SIG;
@@ -39,8 +35,6 @@ function GetCombo(V, P = 255.0) {
             Axis[2] = Math.cos(theta);                                      //
             FT = true;                                                      // 
         }
-
-        console.log(Axis);
 
         ROMA.subset(math.index(0, 0), Math.cos(Angle) + (Math.pow(Axis[0], 2) * (1 - Math.cos(Angle))));            //
         ROMA.subset(math.index(0, 1), (Axis[0] * Axis[1] * (1 - Math.cos(Angle))) - (Axis[2] * Math.sin(Angle)));   // X-Row
@@ -60,7 +54,6 @@ function GetCombo(V, P = 255.0) {
 
         if (Math.max(OV) > 255.0) { s = 255 / Math.max(OV);  OV = OV.map(function(x) { return x * s; }); }
         OV = OV.map(function(x) { return Math.round(Math.max(0, Math.min(x, 255))); });
-        console.log((DotProduct(V, OV) / (L2Norm(V) * L2Norm(OV))));
     } while((DotProduct(V, OV) / (L2Norm(V) * L2Norm(OV))) > 0.7);
     return OV;
 
