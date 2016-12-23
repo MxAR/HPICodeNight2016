@@ -6,9 +6,10 @@
     "tasks": [
         {
             "taskName": "build",
-            "args": [ ],
+            "args": [
+                "${workspaceRoot}/HCGServer/project.json"
+            ],
             "isBuildCommand": true,
-            "showOutput": "silent",
             "problemMatcher": "$msCompile"
         }
     ]
