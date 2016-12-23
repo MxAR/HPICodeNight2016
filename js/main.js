@@ -230,7 +230,7 @@ function hexSearch() {
 
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:5000/api/color",
+		url: "http://importer-aileen-88757.netlify.com/api/color",
 		data: {IC: hex},
 		success: function(response){
 
