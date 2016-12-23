@@ -10,14 +10,19 @@ const COEF = [
 ];
 
 function GetCombo(V, P) {
+    var ROMA = math.zeros(3, 3);
+    var Axis = OV = [ 0, 0, 0 ];
+    var Angle = s = 0;
+    var FT = true;
+
+    var W = V.map(function(x) { return Math.abs(x); });
+    if (Math.max(W) == 0) {
+        W = W.map(function(x) { return (Math.random() * 255) - 127.5; });
+        s = Math.sqrt((W.reduce(function(p, q) { return p + q; }, 0)) / 10);
+    }
+
     var Lum = L2Norm(V) / MLUM;
     var RefAngle = (COEF[0] * Math.pow((Lum - COEF[1]), 4)) + (COEF[2] * Math.pow(Lum, 3)) + (COEF[3] * Math.pow(Lum, 2)) + (COEF[4] * (Lum)) + (COEF[5]);
-    var ROMA = math.zeros(3, 3);
-    var Axis = [ 0, 0, 0 ];
-    var OV = [ 0, 0, 0 ];
-    var Angle = 0;
-    var FT = true;
-    var s = 0
 
     do {
         Angle = RefAngle + Math.exp(Math.pow(Math.random()-0.5, 2) * -7.5) * P * SIG;
@@ -59,7 +64,9 @@ function GetOrthogonalUnitVector(V) {
     return W;
 }
 
-function L2Norm(V) { return Math.sqrt(Math.pow(V[0], 2), Math.pow(V[1], 2), Math.pow(V[2], 2)); }
+function L2Norm(V) { 
+    return Math.sqrt(Math.pow(V[0], 2), Math.pow(V[1], 2), Math.pow(V[2], 2)); 
+}
 
 function DotProduct(P, Q) {
     return [
