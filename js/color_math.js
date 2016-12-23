@@ -53,7 +53,7 @@ function GetCombo(V, P = 255.0) {
         ROMA[2, 1] = (Axis[1] * Axis[2] * (1 - Math.cos(Angle))) + (Axis[0] * Math.sin(Angle));   // Z-Row
         ROMA[2, 2] = Math.cos(Angle) + (Math.pow(Axis[2], 2) * (1 - Math.cos(Angle)));            //
 
-        OV = math.multiply(V, ROMA);
+        OV = math.multiply(V, ROMA)["_data"];
         console.log(OV);
         s = OV[0] < 0 && OV[1] < 0 && OV[2] < 0 ? -1 : 1;
         OV = OV.map(function(x) { return x * s; });
