@@ -233,7 +233,7 @@ function hexSearch() {
 	// }
 
 	if (!hex) { hex = rgbToHex(RandomRGB()); }
-	console.log(hexToRgb(hex), hex);
+	console.log(hexToRgb(hex), GetCombo(hexToRgb(hex)), rgbToHex(GetCombo(hexToRgb(hex))));
 	var color1 = '#' + rgbToHex(GetCombo(hexToRgb(hex)));
 	var color0 = '#' + hex;
 
