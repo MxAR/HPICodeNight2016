@@ -85,9 +85,5 @@ function L2Norm(V) {
 }
 
 function DotProduct(P, Q) {
-    return [
-        P[1] * Q[2] - P[2] * Q[1],
-        P[2] * Q[0] - P[0] * Q[2],
-        P[0] * Q[1] - P[1] * Q[0]
-    ];
+    return P[0]*Q[0] + P[1]*Q[1] + P[2]*Q[2];
 }
