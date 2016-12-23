@@ -9,13 +9,13 @@ const COEF = [
     -36.08078343013936
 ];
 
-// V := Color-Vector (Array)
-// P := Precision
 function GetCombo(V, P = 255.0) {
     var ROMA = math.zeros(3, 3);
     var Axis = OV = [ 0, 0, 0 ];
     var Angle = s = 0;
     var FT = true;
+
+    console.log(V);
 
     var W = V.map(function(x) { return Math.abs(x); });                         // 
     if (Math.max(W) == 0) {                                                     // handling of 
@@ -23,8 +23,12 @@ function GetCombo(V, P = 255.0) {
         s = Math.sqrt((W.reduce(function(p, q) { return p + q; }, 0)) / 10);    //
     } 
 
+    console.log(V);
+
     var Lum = L2Norm(V) / MLUM;                                                                                                                             // calculation of 
     var RefAngle = (COEF[0] * Math.pow((Lum - COEF[1]), 4)) + (COEF[2] * Math.pow(Lum, 3)) + (COEF[3] * Math.pow(Lum, 2)) + (COEF[4] * (Lum)) + (COEF[5]);  // the angle 
+
+    console.log(RefAngle);
 
     do {
         Angle = RefAngle + Math.exp(Math.pow(Math.random()-0.5, 2) * -7.5) * P * SIG;
@@ -50,11 +54,13 @@ function GetCombo(V, P = 255.0) {
         ROMA[2, 2] = Math.cos(Angle) + (Math.pow(Axis[2], 2) * (1 - Math.cos(Angle)));            //
 
         OV = math.multiply(V, ROMA);
+        console.log(OV);
         s = OV[0] < 0 && OV[1] < 0 && OV[2] < 0 ? -1 : 1;
         OV = OV.map(function(x) { return x * s; });
-
+        console.log(OV);
         if (Math.max(OV) > 255.0) { s = 255 / Math.max(OV);  OV = OV.map(function(x) { return x * s; }); }
         OV = OV.map(function(x) { return Math.round(Math.max(0, Math.min(x, 255))); });
+        console.log(OV);
     } while((DotProduct(V, OV) / (L2Norm(V) * L2Norm(OV))) > 0.7);
     return OV;
 
@@ -68,19 +74,16 @@ function RandomRGB() {
     ];
 }
 
-// V := 'normal' Vector (Array)
 function GetOrthogonalUnitVector(V) { 
     var W = [ (Math.random() * 20) - 10, (Math.random() * 20) - 10, 0 ];
     W[2] = (V[0] * W[0] + V[1] * W[1]) / (-1 * V[2]);
     return W;
 }
 
-// V := 'normal' Vector (Array)
 function L2Norm(V) { 
     return Math.sqrt(Math.pow(V[0], 2), Math.pow(V[1], 2), Math.pow(V[2], 2)); 
 }
 
-// P, Q := 'normal' Vector (Array)
 function DotProduct(P, Q) {
     return [
         P[1] * Q[2] - P[2] * Q[1],
