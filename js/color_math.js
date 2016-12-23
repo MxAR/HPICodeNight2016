@@ -15,8 +15,6 @@ function GetCombo(V, P = 255.0) {
     var Angle = s = 0;
     var FT = true;
 
-    console.log(V);
-
     var W = V.map(function(x) { return Math.abs(x); });                         // 
     if (Math.max(W) == 0) {                                                     // handling of 
         W = W.map(function(x) { return (Math.random() * 255) - 127.5; });       // black color codes
@@ -56,12 +54,12 @@ function GetCombo(V, P = 255.0) {
         ROMA.subset(math.index(2, 2), Math.cos(Angle) + (Math.pow(Axis[2], 2) * (1 - Math.cos(Angle))));            //
 
         OV = math.multiply(V, ROMA)["_data"];
-        console.log(OV, ROMA);
         s = OV[0] < 0 && OV[1] < 0 && OV[2] < 0 ? -1 : 1;
         OV = OV.map(function(x) { return x * s; });
 
         if (Math.max(OV) > 255.0) { s = 255 / Math.max(OV);  OV = OV.map(function(x) { return x * s; }); }
         OV = OV.map(function(x) { return Math.round(Math.max(0, Math.min(x, 255))); });
+        console.log((DotProduct(V, OV) / (L2Norm(V) * L2Norm(OV))));
     } while((DotProduct(V, OV) / (L2Norm(V) * L2Norm(OV))) < 0.7);
     return OV;
 
