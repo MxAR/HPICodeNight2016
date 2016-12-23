@@ -41,6 +41,8 @@ function GetCombo(V, P = 255.0) {
             FT = true;                                                      // 
         }
 
+        console.log(Axis);
+
         ROMA.subset(math.index(0, 0), Math.cos(Angle) + (Math.pow(Axis[0], 2) * (1 - Math.cos(Angle))));            //
         ROMA.subset(math.index(0, 1), (Axis[0] * Axis[1] * (1 - Math.cos(Angle))) - (Axis[2] * Math.sin(Angle)));   // X-Row
         ROMA.subset(math.index(0, 2), (Axis[0] * Axis[2] * (1 - Math.cos(Angle))) + (Axis[1] * Math.sin(Angle)));   // 
