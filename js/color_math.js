@@ -9,7 +9,7 @@ const COEF = [
     -36.08078343013936
 ];
 
-function GetCombo(V, P) {
+function GetCombo(V, P = 255.0) {
     var ROMA = math.zeros(3, 3);
     var Axis = OV = [ 0, 0, 0 ];
     var Angle = s = 0;
@@ -52,10 +52,18 @@ function GetCombo(V, P) {
         OV = OV.map(function(x) { return x * s; });
 
         if (Math.max(OV) > 255.0) { s = 255 / Math.max(OV);  OV = OV.map(function(x) { return x * s; }); }
-        OV = OV.map(function(x) { return Math.max(0, Math.min(x, 255)); });
+        OV = OV.map(function(x) { return Math.round(Math.max(0, Math.min(x, 255))); });
     } while((DotProduct(V, OV) / (L2Norm(V) * L2Norm(OV))) > 0.7);
     return OV;
 
+}
+
+function RandomRGB() {
+    return [
+        Math.round(Math.random() * 255.0),
+        Math.round(Math.random() * 255.0),
+        Math.round(Math.random() * 255.0)
+    ];
 }
 
 function GetOrthogonalUnitVector(V) { 
