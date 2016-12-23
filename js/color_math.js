@@ -1,5 +1,5 @@
 const SIG = 15.903165825358679 / 255.0;
-const MLUM = L2Norm(new Vector(255, 255, 255));
+const MLUM = L2Norm([255, 255, 255]);
 const COEF = [
     113.32578213409947,
     -0.08078343013936262,
