@@ -9,20 +9,22 @@ const COEF = [
     -36.08078343013936
 ];
 
+// V := Color-Vector (Array)
+// P := Precision
 function GetCombo(V, P = 255.0) {
     var ROMA = math.zeros(3, 3);
     var Axis = OV = [ 0, 0, 0 ];
     var Angle = s = 0;
     var FT = true;
 
-    var W = V.map(function(x) { return Math.abs(x); });
-    if (Math.max(W) == 0) {
-        W = W.map(function(x) { return (Math.random() * 255) - 127.5; });
-        s = Math.sqrt((W.reduce(function(p, q) { return p + q; }, 0)) / 10);
-    }
+    var W = V.map(function(x) { return Math.abs(x); });                         // 
+    if (Math.max(W) == 0) {                                                     // handling of 
+        W = W.map(function(x) { return (Math.random() * 255) - 127.5; });       // black color codes
+        s = Math.sqrt((W.reduce(function(p, q) { return p + q; }, 0)) / 10);    //
+    } 
 
-    var Lum = L2Norm(V) / MLUM;
-    var RefAngle = (COEF[0] * Math.pow((Lum - COEF[1]), 4)) + (COEF[2] * Math.pow(Lum, 3)) + (COEF[3] * Math.pow(Lum, 2)) + (COEF[4] * (Lum)) + (COEF[5]);
+    var Lum = L2Norm(V) / MLUM;                                                                                                                             // calculation of 
+    var RefAngle = (COEF[0] * Math.pow((Lum - COEF[1]), 4)) + (COEF[2] * Math.pow(Lum, 3)) + (COEF[3] * Math.pow(Lum, 2)) + (COEF[4] * (Lum)) + (COEF[5]);  // the angle 
 
     do {
         Angle = RefAngle + Math.exp(Math.pow(Math.random()-0.5, 2) * -7.5) * P * SIG;
@@ -66,16 +68,19 @@ function RandomRGB() {
     ];
 }
 
+// V := 'normal' Vector (Array)
 function GetOrthogonalUnitVector(V) { 
     var W = [ (Math.random() * 20) - 10, (Math.random() * 20) - 10, 0 ];
     W[2] = (V[0] * W[0] + V[1] * W[1]) / (-1 * V[2]);
     return W;
 }
 
+// V := 'normal' Vector (Array)
 function L2Norm(V) { 
     return Math.sqrt(Math.pow(V[0], 2), Math.pow(V[1], 2), Math.pow(V[2], 2)); 
 }
 
+// P, Q := 'normal' Vector (Array)
 function DotProduct(P, Q) {
     return [
         P[1] * Q[2] - P[2] * Q[1],

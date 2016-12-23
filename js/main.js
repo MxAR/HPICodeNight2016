@@ -61,6 +61,10 @@ function hexToRgb(h) {
 	return [r,g,b];
 }
 
+function rgbToHex(rgb) {
+	return ((1 << 24) + (rgb[0] << 16) + (rgb[1] << 8) + rgb[2]).toString(16).slice(1);
+}
+
 function rgbToHsv (r,g,b) {
 	var computedH = 0;
 	var computedS = 0;
@@ -228,49 +232,85 @@ function hexSearch() {
 	// 	}
 	// }
 
-	$.ajax({
-		type: "GET",
-		url: "http://importer-aileen-88757.netlify.com/api/color",
-		data: {IC: hex},
-		success: function(response){
+	if (!hex) { hex = RandomRGB(); }
+	var color1 = '#' + rgbToHex(GetCombo(hexToRgb(hex)));
+	var color0 = '#' + hex;
 
-			var color0 = '#' + response[0].toUpperCase();
-			var color1 = '#' + response[1].toUpperCase();
+	colorOne = color0;
+	colorTwo = color1;
 
-			colorOne = color0;
-			colorTwo = color1;
+	// Color For Loop
+	for (var i = 0; i < 2; i++) {
+		// Background & Text Color Changes
+		var color = i == 0 ? color0 : color1;
+		$('#color' + i + '10').css('background-color', color);
+		$('.textColor' + i + '10').css('color', color);
+		$('#searchColor' + i).attr('href', 'javascript:search(' + "'" + i + "', true)");
+		// HEX Output
+		$('#hex' + i).html(color);
+		// RGB Output
+		var rgb = hexToRgb(color);
+		$('#rgb' + i).html('rgb(' + rgb[0] + ', ' + rgb[1] + ', ' + rgb[2] + ')');
+		// HSV Output
+		var hsv = rgbToHsv(rgb[0],rgb[1],rgb[2]);
+		$('#hsv' + i).html('hsv(' + Math.round(hsv[0]) + ', ' + hsvCut(hsv[1]) + ', ' + hsvCut(hsv[2]) + ')');
+		// CYMK Output
+		var cymk = hexToCMYK(color);
+		$('#cymk' + i).html('cymk(' + cymk[0].toFixed(4) + ', ' + cymk[1].toFixed(4) + ', ' + cymk[2].toFixed(4) + ', ' + cymk[3].toFixed(4) + ')');
 
-			// Color For Loop
-			for (var i = 0; i < 2; i++) {
-				// Background & Text Color Changes
-				var color = i == 0 ? color0 : color1;
-				$('#color' + i + '10').css('background-color', color);
-				$('.textColor' + i + '10').css('color', color);
-				$('#searchColor' + i).attr('href', 'javascript:search(' + "'" + i + "', true)");
-				// HEX Output
-				$('#hex' + i).html(color);
-				// RGB Output
-				var rgb = hexToRgb(color);
-				$('#rgb' + i).html('rgb(' + rgb[0] + ', ' + rgb[1] + ', ' + rgb[2] + ')');
-				// HSV Output
-				var hsv = rgbToHsv(rgb[0],rgb[1],rgb[2]);
-				$('#hsv' + i).html('hsv(' + Math.round(hsv[0]) + ', ' + hsvCut(hsv[1]) + ', ' + hsvCut(hsv[2]) + ')');
-				// CYMK Output
-				var cymk = hexToCMYK(color);
-				$('#cymk' + i).html('cymk(' + cymk[0].toFixed(4) + ', ' + cymk[1].toFixed(4) + ', ' + cymk[2].toFixed(4) + ', ' + cymk[3].toFixed(4) + ')');
-
-				// Tone For Loop
-				for (var j = 0; j < 21; j++) {
-					var shade = (lum(color, ((j * -0.1) + 1))).toUpperCase();
-					if (j !== 10) {
-						$('.color' + i + j).css('background-color', shade);
-						$('#textColor' + i + j).html(shade);
-					}
-				}
+		// Tone For Loop
+		for (var j = 0; j < 21; j++) {
+			var shade = (lum(color, ((j * -0.1) + 1))).toUpperCase();
+			if (j !== 10) {
+				$('.color' + i + j).css('background-color', shade);
+				$('#textColor' + i + j).html(shade);
 			}
-		},
-		dataType: 'json'
-	});
+		}
+	}
+
+	// $.ajax({
+	// 	type: "GET",
+	// 	url: "http://importer-aileen-88757.netlify.com/api/color",
+	// 	data: {IC: hex},
+	// 	success: function(response){
+
+	// 		var color0 = '#' + response[0].toUpperCase();
+	// 		var color1 = '#' + response[1].toUpperCase();
+
+	// 		colorOne = color0;
+	// 		colorTwo = color1;
+
+	// 		// Color For Loop
+	// 		for (var i = 0; i < 2; i++) {
+	// 			// Background & Text Color Changes
+	// 			var color = i == 0 ? color0 : color1;
+	// 			$('#color' + i + '10').css('background-color', color);
+	// 			$('.textColor' + i + '10').css('color', color);
+	// 			$('#searchColor' + i).attr('href', 'javascript:search(' + "'" + i + "', true)");
+	// 			// HEX Output
+	// 			$('#hex' + i).html(color);
+	// 			// RGB Output
+	// 			var rgb = hexToRgb(color);
+	// 			$('#rgb' + i).html('rgb(' + rgb[0] + ', ' + rgb[1] + ', ' + rgb[2] + ')');
+	// 			// HSV Output
+	// 			var hsv = rgbToHsv(rgb[0],rgb[1],rgb[2]);
+	// 			$('#hsv' + i).html('hsv(' + Math.round(hsv[0]) + ', ' + hsvCut(hsv[1]) + ', ' + hsvCut(hsv[2]) + ')');
+	// 			// CYMK Output
+	// 			var cymk = hexToCMYK(color);
+	// 			$('#cymk' + i).html('cymk(' + cymk[0].toFixed(4) + ', ' + cymk[1].toFixed(4) + ', ' + cymk[2].toFixed(4) + ', ' + cymk[3].toFixed(4) + ')');
+
+	// 			// Tone For Loop
+	// 			for (var j = 0; j < 21; j++) {
+	// 				var shade = (lum(color, ((j * -0.1) + 1))).toUpperCase();
+	// 				if (j !== 10) {
+	// 					$('.color' + i + j).css('background-color', shade);
+	// 					$('#textColor' + i + j).html(shade);
+	// 				}
+	// 			}
+	// 		}
+	// 	},
+	// 	dataType: 'json'
+	// });
 
 }
 
