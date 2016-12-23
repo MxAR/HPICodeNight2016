@@ -42,19 +42,19 @@ function GetCombo(V, P = 255.0) {
         }
 
         math.subset(ROMA, math.index(0, 0), Math.cos(Angle) + (Math.pow(Axis[0], 2) * (1 - Math.cos(Angle))));            //
-        math.subset(ROMA, math.index(0, 0), (Axis[0] * Axis[1] * (1 - Math.cos(Angle))) - (Axis[2] * Math.sin(Angle)));   // X-Row
-        math.subset(ROMA, math.index(0, 0), (Axis[0] * Axis[2] * (1 - Math.cos(Angle))) + (Axis[1] * Math.sin(Angle)));   // 
+        math.subset(ROMA, math.index(0, 1), (Axis[0] * Axis[1] * (1 - Math.cos(Angle))) - (Axis[2] * Math.sin(Angle)));   // X-Row
+        math.subset(ROMA, math.index(0, 2), (Axis[0] * Axis[2] * (1 - Math.cos(Angle))) + (Axis[1] * Math.sin(Angle)));   // 
 
-        math.subset(ROMA, math.index(0, 0), (Axis[0] * Axis[1] * (1 - Math.cos(Angle))) + (Axis[2] * Math.sin(Angle)));   // 
-        math.subset(ROMA, math.index(0, 0), Math.cos(Angle) + (Math.pow(Axis[1], 2) * (1 - Math.cos(Angle))));            // Y-Row 
-        math.subset(ROMA, math.index(0, 0), (Axis[1] * Axis[2] * (1 - Math.cos(Angle))) - (Axis[0] * Math.sin(Angle)));   //
+        math.subset(ROMA, math.index(1, 0), (Axis[0] * Axis[1] * (1 - Math.cos(Angle))) + (Axis[2] * Math.sin(Angle)));   // 
+        math.subset(ROMA, math.index(1, 1), Math.cos(Angle) + (Math.pow(Axis[1], 2) * (1 - Math.cos(Angle))));            // Y-Row 
+        math.subset(ROMA, math.index(1, 2), (Axis[1] * Axis[2] * (1 - Math.cos(Angle))) - (Axis[0] * Math.sin(Angle)));   //
 
-        math.subset(ROMA, math.index(0, 0), (Axis[0] * Axis[2] * (1 - Math.cos(Angle))) - (Axis[1] * Math.sin(Angle)));   // 
-        math.subset(ROMA, math.index(0, 0), (Axis[1] * Axis[2] * (1 - Math.cos(Angle))) + (Axis[0] * Math.sin(Angle)));   // Z-Row
-        math.subset(ROMA, math.index(0, 0), Math.cos(Angle) + (Math.pow(Axis[2], 2) * (1 - Math.cos(Angle))));            //
+        math.subset(ROMA, math.index(2, 0), (Axis[0] * Axis[2] * (1 - Math.cos(Angle))) - (Axis[1] * Math.sin(Angle)));   // 
+        math.subset(ROMA, math.index(2, 1), (Axis[1] * Axis[2] * (1 - Math.cos(Angle))) + (Axis[0] * Math.sin(Angle)));   // Z-Row
+        math.subset(ROMA, math.index(2, 2), Math.cos(Angle) + (Math.pow(Axis[2], 2) * (1 - Math.cos(Angle))));            //
 
         OV = math.multiply(V, ROMA)["_data"];
-        console.log(OV);
+        console.log(OV, ROMA);
         s = OV[0] < 0 && OV[1] < 0 && OV[2] < 0 ? -1 : 1;
         OV = OV.map(function(x) { return x * s; });
         if (Math.max(OV) > 255.0) { s = 255 / Math.max(OV);  OV = OV.map(function(x) { return x * s; }); }
