@@ -232,7 +232,7 @@ function hexSearch() {
 	// 	}
 	// }
 
-	if (!hex) { hex = RandomRGB(); }
+	if (!hex) { hex = rgbToHex(RandomRGB()); }
 	var color1 = '#' + rgbToHex(GetCombo(hexToRgb(hex)));
 	var color0 = '#' + hex;
 
