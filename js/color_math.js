@@ -81,7 +81,7 @@ function GetOrthogonalUnitVector(V) {
 }
 
 function L2Norm(V) { 
-    return Math.sqrt(Math.pow(V[0], 2), Math.pow(V[1], 2), Math.pow(V[2], 2)); 
+    return Math.sqrt(Math.pow(V[0], 2) + Math.pow(V[1], 2) + Math.pow(V[2], 2)); 
 }
 
 function DotProduct(P, Q) {
