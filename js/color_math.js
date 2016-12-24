@@ -21,6 +21,7 @@ function GetCombo(V, P = 255.0) {
         s = Math.sqrt((W.reduce(function (p, q) { return p + q; }, 0)) / 10);   //
         V = W.map(function (x) { return x / s; });                              //
     }                                                                           //
+    console.log(V, W);
 
     var Lum = L2Norm(V) / MLUM;                                                                                                                             // calculation of 
     var RefAngle = (COEF[0] * Math.pow((Lum - COEF[1]), 4)) + (COEF[2] * Math.pow(Lum, 3)) + (COEF[3] * Math.pow(Lum, 2)) + (COEF[4] * (Lum)) + (COEF[5]);  // the angle 
@@ -49,7 +50,7 @@ function GetCombo(V, P = 255.0) {
         s = (MLUM / L2Norm(OV)) * Math.exp(Math.pow(Math.random() - 0, 5, 2) * 1.1);
         OV = OV.map(function (x) { return Math.round(Math.max(0, x * s)); });
 
-        console.log(V, OV, s, Axis, ROMA["_data"]);
+        // console.log(V, OV, s, Axis, ROMA["_data"]);
         s = (DotProduct(V, OV) / (L2Norm(V) * L2Norm(OV)));
     } while (0.5 < s && s > 0.7);
     return OV;
