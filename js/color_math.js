@@ -20,8 +20,8 @@ function GetCombo(V, P = 255.0) {
         W = W.map(function (x) { return (Math.random() * 255) - 127.5; });      // black color codes
         s = Math.sqrt((W.reduce(function (p, q) { return p + q; }, 0)) / 10);   //
         V = W.map(function (x) { return x / s; });                              //
+        console.log(V, W);
     }                                                                           //
-    console.log(V, W);
 
     var Lum = L2Norm(V) / MLUM;                                                                                                                             // calculation of 
     var RefAngle = (COEF[0] * Math.pow((Lum - COEF[1]), 4)) + (COEF[2] * Math.pow(Lum, 3)) + (COEF[3] * Math.pow(Lum, 2)) + (COEF[4] * (Lum)) + (COEF[5]);  // the angle 
