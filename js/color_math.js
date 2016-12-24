@@ -67,7 +67,8 @@ function RandomRGB() {
 }
 
 function NormalizeBrightness(V) {
-    var s = L2Norm(V) / (MLUM * Math.exp(Math.pow(Math.random()-0.5, 2) / -0.9));
+    var s = L2Norm(V) * Math.pow(MLUM * Math.exp(Math.pow(Math.random()-0.5, 2) / -0.9), -1);
+    console.log(s);
     return V.map(function(x) { return V / s; });
 }
 
