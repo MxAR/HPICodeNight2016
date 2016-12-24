@@ -17,10 +17,9 @@ function GetCombo(V, P = 255.0) {
 
     var W = V.map(function (x) { return Math.abs(x); });                        // 
     if (Math.max.apply(null, W) == 0) {                                         // handling of 
-        W = W.map(function (x) { return (Math.random() * 255) - 127.5; });      // black color codes
+        W = W.map(function (x) { return (Math.random() * 255); });              // black color codes
         s = Math.sqrt((W.reduce(function (p, q) { return p + q; }, 0)) / 10);   //
         V = W.map(function (x) { return x / s; });                              //
-        console.log(V, W);
     }                                                                           //
 
     var Lum = L2Norm(V) / MLUM;                                                                                                                             // calculation of 
