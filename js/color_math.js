@@ -49,10 +49,10 @@ function GetCombo(V, P = 255.0) {
         ROMA.subset(math.index(2, 2), Math.cos(Angle) + (Math.pow(Axis[2], 2) * (1 - Math.cos(Angle))));            //
 
         OV = math.multiply(V, ROMA)["_data"];
+        
         s = OV[0] < 0 && OV[1] < 0 && OV[2] < 0 ? -1 : 1;
         OV = OV.map(function (x) { return x * s; });
 
-        OV = NormalizeBrightness(OV);
         s = (L2Norm(OV) / MLUM) * Math.exp(Math.pow(Math.random() - 0, 5, 2) * 1.1);
         OV = OV.map(function (x) { return Math.round(Math.max(0, x / s)); });
 
