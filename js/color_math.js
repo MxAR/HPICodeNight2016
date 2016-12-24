@@ -1,5 +1,5 @@
-const SIG = 15.903165825358679 / 255.0;
-const MLUM = L2Norm([255, 255, 255]);
+const SIG = 15.903165825358679 / 256.0;
+const MLUM = L2Norm([256, 256, 256]);
 const COEF = [
     113.32578213409947,
     -0.08078343013936262,
@@ -9,15 +9,16 @@ const COEF = [
     -36.08078343013936
 ];
 
-function GetCombo(V, P = 255.0) {
+function GetCombo(V, P = 256.0) {
     var ROMA = math.zeros(3, 3);
     var Axis = OV = [0, 0, 0];
     var Angle = s = 0;
     var FT = true;
 
+    V = V.map(function(x) { return x + 1; });
     var W = V.map(function (x) { return Math.abs(x); });                        // 
     if (Math.max(W) == 0) {                                                     // handling of 
-        W = W.map(function (x) { return (Math.random() * 255) - 127.5; });      // black color codes
+        W = W.map(function (x) { return (Math.random() * 256) - 128; });      // black color codes
         s = Math.sqrt((W.reduce(function (p, q) { return p + q; }, 0)) / 10);   //
         V = W.map(function (x) { return x / s; });                              //
     }                                                                           //
@@ -27,14 +28,7 @@ function GetCombo(V, P = 255.0) {
 
     do {
         Angle = RefAngle + Math.exp(Math.pow(Math.random() - 0.5, 2) * -7.5) * P * SIG;
-        if (FT) { Axis = GetOrthogonalUnitVector(V); FT = false } else {
-            var theta = Math.random() * 90;                                 //
-            var psi = Math.random() * 90;                                   //
-            Axis[0] = Math.sin(theta) * Math.cos(psi);                      // manual generation 
-            Axis[1] = Math.sin(theta) * Math.sin(psi);                      // of a random axis
-            Axis[2] = Math.cos(theta);                                      //
-            FT = true;                                                      // 
-        }
+        Axis = GetOrthogonalUnitVector(V);
 
         ROMA.subset(math.index(0, 0), Math.cos(Angle) + (Math.pow(Axis[0], 2) * (1 - Math.cos(Angle))));            //
         ROMA.subset(math.index(0, 1), (Axis[0] * Axis[1] * (1 - Math.cos(Angle))) - (Axis[2] * Math.sin(Angle)));   // X-Row
@@ -49,7 +43,7 @@ function GetCombo(V, P = 255.0) {
         ROMA.subset(math.index(2, 2), Math.cos(Angle) + (Math.pow(Axis[2], 2) * (1 - Math.cos(Angle))));            //
 
         OV = math.multiply(V, ROMA)["_data"];
-        
+
         s = OV[0] < 0 && OV[1] < 0 && OV[2] < 0 ? -1 : 1;
         OV = OV.map(function (x) { return x * s; });
 
@@ -58,7 +52,7 @@ function GetCombo(V, P = 255.0) {
 
         console.log(V, OV, s, Axis, ROMA["_data"]);
     } while ((DotProduct(V, OV) / (L2Norm(V) * L2Norm(OV))) > 0.7);
-    return OV;
+    return OV.map(function(x) { return x - 1; });
 
 }
 
