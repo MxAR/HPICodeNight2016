@@ -67,8 +67,7 @@ function RandomRGB() {
 
 function GetOrthogonalUnitVector(V) { 
     var W = [ Math.random() * 10, Math.random() * -10, 0 ];
-    W[2] = (V[0] * W[0] + V[1] * W[1]) / (-1 * V[2]);
-    console.log(W);
+    W[2] = (V[0] * W[0] + V[1] * W[1]) / (-1 * (V[2] == 0 ? 1 : V[2]));
     var size = L2Norm(W);
     return W.map(function(x) { return x / size; });
 }
