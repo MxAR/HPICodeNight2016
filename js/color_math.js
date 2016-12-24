@@ -1,5 +1,5 @@
-const SIG = 15.903165825358679 / 256.0;
-const MLUM = L2Norm([256, 256, 256]);
+const SIG = 15.903165825358679 / 255.0;
+const MLUM = L2Norm([255, 255, 255]);
 const COEF = [
     113.32578213409947,
     -0.08078343013936262,
@@ -9,16 +9,15 @@ const COEF = [
     -36.08078343013936
 ];
 
-function GetCombo(V, P = 256.0) {
+function GetCombo(V, P = 255.0) {
     var ROMA = math.zeros(3, 3);
     var Axis = OV = [0, 0, 0];
     var Angle = s = 0;
     var FT = true;
 
-    V = V.map(function(x) { return x + 1; });
     var W = V.map(function (x) { return Math.abs(x); });                        // 
     if (Math.max(W) == 0) {                                                     // handling of 
-        W = W.map(function (x) { return (Math.random() * 256) - 128; });      // black color codes
+        W = W.map(function (x) { return (Math.random() * 255) - 127.5; });      // black color codes
         s = Math.sqrt((W.reduce(function (p, q) { return p + q; }, 0)) / 10);   //
         V = W.map(function (x) { return x / s; });                              //
     }                                                                           //
@@ -52,7 +51,7 @@ function GetCombo(V, P = 256.0) {
 
         console.log(V, OV, s, Axis, ROMA["_data"]);
     } while ((DotProduct(V, OV) / (L2Norm(V) * L2Norm(OV))) > 0.7);
-    return OV.map(function(x) { return x - 1; });
+    return OV;
 
 }
 
