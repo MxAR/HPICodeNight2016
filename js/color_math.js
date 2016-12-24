@@ -1,10 +1,10 @@
 const SIG = 15.903165825358679 / 255.0;
 const MLUM = L2Norm([255, 255, 255]);
 const COEF = [
-    108.29450583260494, 
+    108.29450583260494,
     0.9192165698606374,
     -18.95601236539241,
-    -116.97676027964721, 
+    -116.97676027964721,
     150.03360140094875,
     -19.080783430139363
 ];
@@ -16,7 +16,7 @@ function GetCombo(V, P = 255.0) {
     var FT = true;
 
     var W = V.map(function (x) { return Math.abs(x); });                        // 
-    if (Math.max(W) == 0) {                                                     // handling of 
+    if (Math.max.apply(null, W) == 0) {                                         // handling of 
         W = W.map(function (x) { return (Math.random() * 255) - 127.5; });      // black color codes
         s = Math.sqrt((W.reduce(function (p, q) { return p + q; }, 0)) / 10);   //
         V = W.map(function (x) { return x / s; });                              //
