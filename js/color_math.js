@@ -52,6 +52,7 @@ function GetCombo(V, P = 255.0) {
         s = OV[0] < 0 && OV[1] < 0 && OV[2] < 0 ? -1 : 1;
         OV = OV.map(function(x) { return x * s; });
 
+        OV = NormalizeBrightness(OV);
         if (Math.max(OV) > 255.0) { s = 255 / Math.max(OV);  OV = OV.map(function(x) { return x * s; }); }
         OV = OV.map(function(x) { return Math.round(Math.max(0, Math.min(x, 255))); });
 
@@ -63,6 +64,11 @@ function GetCombo(V, P = 255.0) {
 
 function RandomRGB() {
     return ([0, 0, 0]).map(function(x) { return Math.round(Math.random() * 255.0);})
+}
+
+function NormalizeBrightness(V) {
+    var s = L2Norm(V) / (MLUM * Math.exp(Math.pow(Math.random()-0.5, 2) / -0.9));
+    return V.map(function(x) { return V / s; });
 }
 
 function GetOrthogonalUnitVector(V) { 
