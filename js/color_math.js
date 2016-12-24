@@ -46,8 +46,8 @@ function GetCombo(V, P = 255.0) {
         s = OV[0] < 0 && OV[1] < 0 && OV[2] < 0 ? -1 : 1;
         OV = OV.map(function (x) { return x * s; });
 
-        s = (L2Norm(OV) / MLUM) * Math.exp(Math.pow(Math.random() - 0, 5, 2) * 1.1);
-        OV = OV.map(function (x) { return Math.round(Math.max(0, x / s)); });
+        s = (MLUM / L2Norm(OV)) * Math.exp(Math.pow(Math.random() - 0, 5, 2) * 1.1);
+        OV = OV.map(function (x) { return Math.round(Math.max(0, x * s)); });
 
         console.log(V, OV, s, Axis, ROMA["_data"]);
     } while ((DotProduct(V, OV) / (L2Norm(V) * L2Norm(OV))) > 0.7);
