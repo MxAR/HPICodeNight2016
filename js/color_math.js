@@ -52,10 +52,10 @@ function GetCombo(V, P = 255.0) {
         s = OV[0] < 0 && OV[1] < 0 && OV[2] < 0 ? -1 : 1;
         OV = OV.map(function(x) { return x * s; });
 
-        console.log(V, OV, Axis, ROMA["_data"])
-
         if (Math.max(OV) > 255.0) { s = 255 / Math.max(OV);  OV = OV.map(function(x) { return x * s; }); }
         OV = OV.map(function(x) { return Math.round(Math.max(0, Math.min(x, 255))); });
+
+        console.log(V, OV, Axis, ROMA["_data"]);
     } while((DotProduct(V, OV) / (L2Norm(V) * L2Norm(OV))) > 0.7);
     return OV;
 
@@ -68,6 +68,7 @@ function RandomRGB() {
 function GetOrthogonalUnitVector(V) { 
     var W = [ Math.random() * 10, Math.random() * -10, 0 ];
     W[2] = (V[0] * W[0] + V[1] * W[1]) / (-1 * V[2]);
+    console.log(W);
     var size = L2Norm(W);
     return W.map(function(x) { return x / size; });
 }
