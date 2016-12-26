@@ -10,10 +10,10 @@ const COEF = [
 ];
 
 function GetCombo(V, P = 255.0) {
-    var ROMA = math.zeros(3, 3);
-    var Axis = OV = [0, 0, 0];
-    var Angle = s = 0;
-    var FT = true;
+    var Axis, OV, OVX, OVY, OVZ, Angle, s;
+
+    var Lum = L2Norm(V) / MLUM;                                                                                                                             // calculation of 
+    var RefAngle = (COEF[0] * Math.pow((Lum - COEF[1]), 4)) + (COEF[2] * Math.pow(Lum, 3)) + (COEF[3] * Math.pow(Lum, 2)) + (COEF[4] * (Lum)) + (COEF[5]);  // the angle 
 
     var W = V.map(function (x) { return Math.abs(x); });                        // 
     if (Math.max.apply(null, W) == 0) {                                         // handling of 
@@ -22,26 +22,33 @@ function GetCombo(V, P = 255.0) {
         V = W.map(function (x) { return x / s; });                              //
     }                                                                           //
 
-    var Lum = L2Norm(V) / MLUM;                                                                                                                             // calculation of 
-    var RefAngle = (COEF[0] * Math.pow((Lum - COEF[1]), 4)) + (COEF[2] * Math.pow(Lum, 3)) + (COEF[3] * Math.pow(Lum, 2)) + (COEF[4] * (Lum)) + (COEF[5]);  // the angle 
-
     do {
         Angle = RefAngle + Math.exp(Math.pow(Math.random() - 0.5, 2) * -7.5) * P * SIG;
         Axis = GetOrthogonalUnitVector(V);
 
-        ROMA.subset(math.index(0, 0), Math.cos(Angle) + (Math.pow(Axis[0], 2) * (1 - Math.cos(Angle))));            //
-        ROMA.subset(math.index(0, 1), (Axis[0] * Axis[1] * (1 - Math.cos(Angle))) - (Axis[2] * Math.sin(Angle)));   // X-Row
-        ROMA.subset(math.index(0, 2), (Axis[0] * Axis[2] * (1 - Math.cos(Angle))) + (Axis[1] * Math.sin(Angle)));   // 
+        OVX = [
+            Math.cos(Angle) + (Math.pow(Axis[0], 2) * (1 - Math.cos(Angle))),           //
+            (Axis[0] * Axis[1] * (1 - Math.cos(Angle))) - (Axis[2] * Math.sin(Angle)),  // X-Row
+            (Axis[0] * Axis[2] * (1 - Math.cos(Angle))) + (Axis[1] * Math.sin(Angle))   //
+        ];
 
-        ROMA.subset(math.index(1, 0), (Axis[0] * Axis[1] * (1 - Math.cos(Angle))) + (Axis[2] * Math.sin(Angle)));   // 
-        ROMA.subset(math.index(1, 1), Math.cos(Angle) + (Math.pow(Axis[1], 2) * (1 - Math.cos(Angle))));            // Y-Row 
-        ROMA.subset(math.index(1, 2), (Axis[1] * Axis[2] * (1 - Math.cos(Angle))) - (Axis[0] * Math.sin(Angle)));   //
+        OVY = [
+            (Axis[0] * Axis[1] * (1 - Math.cos(Angle))) + (Axis[2] * Math.sin(Angle)),  //
+            Math.cos(Angle) + (Math.pow(Axis[1], 2) * (1 - Math.cos(Angle))),           // Y-Row
+            (Axis[1] * Axis[2] * (1 - Math.cos(Angle))) - (Axis[0] * Math.sin(Angle))   //
+        ];
 
-        ROMA.subset(math.index(2, 0), (Axis[0] * Axis[2] * (1 - Math.cos(Angle))) - (Axis[1] * Math.sin(Angle)));   // 
-        ROMA.subset(math.index(2, 1), (Axis[1] * Axis[2] * (1 - Math.cos(Angle))) + (Axis[0] * Math.sin(Angle)));   // Z-Row
-        ROMA.subset(math.index(2, 2), Math.cos(Angle) + (Math.pow(Axis[2], 2) * (1 - Math.cos(Angle))));            //
+        OVZ = [
+            (Axis[0] * Axis[2] * (1 - Math.cos(Angle))) - (Axis[1] * Math.sin(Angle)),  //
+            (Axis[1] * Axis[2] * (1 - Math.cos(Angle))) + (Axis[0] * Math.sin(Angle)),  // Z-Row
+            Math.cos(Angle) + (Math.pow(Axis[2], 2) * (1 - Math.cos(Angle)))            //
+        ];
 
-        OV = math.multiply(V, ROMA)["_data"];
+        OV = [
+            DotProduct(OVX, V),
+            DotProduct(OVY, V),
+            DotProduct(OVZ, V)
+        ];
 
         s = OV[0] < 0 && OV[1] < 0 && OV[2] < 0 ? -1 : 1;
         OV = OV.map(function (x) { return x * s; });
@@ -49,7 +56,6 @@ function GetCombo(V, P = 255.0) {
         s = (MLUM / L2Norm(OV)) * Math.exp(Math.pow(Math.random() - 0, 5, 2) * 1.1);
         OV = OV.map(function (x) { return Math.round(Math.max(0, x * s)); });
 
-        // console.log(V, OV, s, Axis, ROMA["_data"]);
         s = (DotProduct(V, OV) / (L2Norm(V) * L2Norm(OV)));
     } while (0.5 < s && s > 0.7);
     return OV;
