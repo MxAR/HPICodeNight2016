@@ -58,7 +58,7 @@ function GetCombo(V, P = 255.0) {
 
         s = (DotProduct(V, OV) / (L2Norm(V) * L2Norm(OV)));
         console.log(s);
-    } while (0.5 > s || s > 0.7);
+    } while (0.6 > s || s > 0.7);
     return OV;
 
 }
