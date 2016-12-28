@@ -57,7 +57,7 @@ function GetCombo(V, P = 255.0) {
         OV = OV.map(function (x) { return Math.round(Math.max(0, x * s)); });
 
         s = (DotProduct(V, OV) / (L2Norm(V) * L2Norm(OV)));
-        console.log(s, DotProduct(V, OV), L2Norm(V), L2Norm(OV));
+        console.log(s, DotProduct(V, OV), L2Norm(V), L2Norm(OV), OV);
     } while (0.6 > s || s > 0.7);
     return OV;
 
