@@ -10,16 +10,14 @@ const COEF = [
 ];
 
 function GetCombo(V, P = 255.0) {
-    var Axis, OV, OVX, OVY, OVZ, Angle, s;
-
-    var Lum = L2Norm(V) / MLUM;                                                                                                                             // calculation of 
-    var RefAngle = (COEF[0] * Math.pow((Lum - COEF[1]), 4)) + (COEF[2] * Math.pow(Lum, 3)) + (COEF[3] * Math.pow(Lum, 2)) + (COEF[4] * (Lum)) + (COEF[5]);  // the angle 
-
-    var W = V.map(function (x) { return Math.abs(x); });                        // 
-    if (Math.max.apply(null, W) == 0) {                                         // handling of 
-        W = W.map(function (x) { return (Math.random() * 255); });              // black color codes
-        s = Math.sqrt((W.reduce(function (p, q) { return p + q; }, 0)) / 10);   //
-        V = W.map(function (x) { return x / s; });                              //
+    var Lum = L2Norm(V) / MLUM;  
+    var Axis, OV, OVX, OVY, OVZ, Angle, s;                                                                                                                  
+    var RefAngle = (COEF[0] * Math.pow((Lum - COEF[1]), 4)) + (COEF[2] * Math.pow(Lum, 3)) + (COEF[3] * Math.pow(Lum, 2)) + (COEF[4] * (Lum)) + (COEF[5]);
+ 
+    if (Math.max.apply(null, V) == 0) {                                         //
+        V = RandomRGB();                                                        // 
+        s = Math.sqrt((V.reduce(function (p, q) { return p + q; }, 0)) / 10);   // handling of
+        V = V.map(function (x) { return x / s; });                              // black color codes
     }                                                                           //
 
     do {
@@ -54,17 +52,13 @@ function GetCombo(V, P = 255.0) {
         OV = OV.map(function (x) { return x * s; });
 
         s = (MLUM / L2Norm(OV)) * Math.exp(Math.pow(Math.random() - 0, 5, 2) * 1.1);
-        OV = OV.map(function (x) { return Math.round(Math.max(0, x * s)); });
-
-        s = (DotProduct(V, OV) / (L2Norm(V) * L2Norm(OV)));
-        console.log(s, DotProduct(V, OV), L2Norm(V), L2Norm(OV), OV);
-    } while (0.6 > s || s > 0.7);
+        OV = OV.map(function (x) { return Math.round(Math.max(0, x * s)); });;
+    } while ((DotProduct(V, OV) / (L2Norm(V) * L2Norm(OV))) > 0.7);
     return OV;
-
 }
 
 function RandomRGB() {
-    return ([0, 0, 0]).map(function (x) { return Math.round(Math.random() * 255.0); })
+    return ([0, 0, 0]).map(function (x) { return Math.abs(Math.round(Math.random() * 255.0)); })
 }
 
 function GetOrthogonalUnitVector(V) {
