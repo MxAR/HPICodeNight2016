@@ -17,7 +17,7 @@ function GetCombo(V, P = 255.0) {
     if (Math.max.apply(null, V) == 0) {                                         //
         V = RandomRGB();                                                        // 
         s = Math.sqrt((V.reduce(function (p, q) { return p + q; }, 0)) / 10);   // handling of
-        V = V.map(function (x) { return x / s; });                              // black color codes
+        V = V.map(function (x) { return x / s; });                              // black colour codes
     }                                                                           //
 
     do {
@@ -47,6 +47,8 @@ function GetCombo(V, P = 255.0) {
             DotProduct(OVY, V),
             DotProduct(OVZ, V)
         ];
+
+        println(OV)
 
         s = OV[0] < 0 && OV[1] < 0 && OV[2] < 0 ? -1 : 1;
         OV = OV.map(function (x) { return x * s; });
