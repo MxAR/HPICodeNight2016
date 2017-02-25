@@ -8,3 +8,7 @@ deps/deps.jl
 # OS
 #######
 .DS_Store
+
+# CodeKit
+#######
+*.codekit
