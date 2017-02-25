@@ -187,12 +187,12 @@ function hexSearch() {
 				hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
 			}
 		} else {
-		    $('#notificationText').html('The thing you typed into the input is not a hex code, please check and write a valid hex code. Note: You dont have to write a hex to get results.');
+		    $('#notificationText').html('The thing you typed into the input is not a hex code, please check and write a valid hex code. Note: Leave the input black and press enter to seach for random HEX codes.');
 			$(".notification").css('display', 'block');
 			return;
 		}
 	} else {
-		$('#notificationText').html('The thing you typed into the input is not a hex code, please check and write a valid hex code. Note: You dont have to write a hex to get results.');
+		$('#notificationText').html('The thing you typed into the input is not a hex code, please check and write a valid hex code. Note: Leave the input black and press enter to seach for random HEX codes.');
 		$(".notification").css('display', 'block');
 		return;
 	}
