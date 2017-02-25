@@ -26,7 +26,7 @@
 	  <!-- Nav / Top -->
 	  <div class="nav">
 	    <div class="logo">
-	      <a href="javascript:location.reload()">Veconomy</a>
+	      <a href="javascript:reloadPage()">Veconomy</a>
 	    </div>
 	    <div class="menu">
 	      <input placeholder="Hex Code" id="hexSearch" /><button id="genSubmit" onclick="hexSearch()"><i class="fa fa-search"></i></button>
@@ -122,6 +122,11 @@
 	        }
 
 	      });
+
+	      function reloadPage() {
+	      	$input.value = "";
+	      	hexSearch();
+	      }
 
 	    </script>
 	</body>

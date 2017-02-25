@@ -247,7 +247,7 @@ function hexSearch() {
 		$('.textColor' + i + '10').css('color', color);
 		$('#searchColor' + i).attr('href', 'javascript:search(' + "'" + i + "', true)");
 		// HEX Output
-		$('#hex' + i).html(color);
+		$('#hex' + i).html(color.toUpperCase());
 		// RGB Output
 		var rgb = hexToRgb(color);
 		$('#rgb' + i).html('rgb(' + rgb[0] + ', ' + rgb[1] + ', ' + rgb[2] + ')');
