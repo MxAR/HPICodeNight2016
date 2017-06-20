@@ -232,8 +232,8 @@ function hexSearch() {
 	// 	}
 	// }
 
-	if (!hex) { hex = rgbToHex(RandomRGB()); }
-	var color1 = '#' + rgbToHex(GetCombo(hexToRgb(hex)));
+	if (!hex) { hex = rgbToHex(rand_rgb()); }
+	var color1 = '#' + rgbToHex(gencomp(hexToRgb(hex)));
 	var color0 = '#' + hex;
 
 	colorOne = color0;
