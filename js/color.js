@@ -4,7 +4,9 @@ function gencomp(V, cc = 0.4) {
     var lumV = norm(V) / mlum
     var O = rotvec(V.map(function(x) {return x-127.5}), 90, ouvec(V))
         .map(function(x){ return Math.min(127.5, Math.max(-127.5, x))+127.5})
-    while (Math.abs(lumV-(norm(O) / mlum)) < cc) {O = O.map(function(x){return x*(lumV>0.5?.5:1.5)})}
+    while (Math.abs(lumV-(norm(O) / mlum)) < cc) {
+        O = O.map(function(x){return x*(lumV>0.5?.5:1.5)})
+    }
     return O.map(function(x){return Math.min(255, Math.max(0, Math.round(x)))})
 }
 
